@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(description = "购物车接口")
 @Controller
 @RequestMapping(value = "api/cart")
+@CrossOrigin
 public class CartController {
     @Autowired
     private CartService cartService;

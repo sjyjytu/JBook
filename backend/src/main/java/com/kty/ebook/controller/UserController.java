@@ -21,6 +21,7 @@ import java.util.List;
 @Api(description = "用户接口")
 @Controller
 @RequestMapping(value = "/api/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;

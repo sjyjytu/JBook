@@ -10,23 +10,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Api(description = "书籍接口")
 @Controller
 @RequestMapping(value = "api/book")
+@CrossOrigin
 public class BookController {
     @Autowired
     private BookService bookService;
 
     @ApiOperation(value = "获取书籍", notes = "分页获取指定数量的书籍")
-    @RequestMapping(value = "/show",method = RequestMethod.GET)
+    @RequestMapping(value = "/show",method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<JSONObject> show(@RequestBody String request){
+        System.out.println("Book show called");
         JSONObject param = JSONObject.parseObject(request);
         JSONObject ret = new JSONObject();
         int start = param.getIntValue("start");
