@@ -103,7 +103,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         checkAccount: (username, password) => {
-            User.login(username, password).then(res=>dispatch({type: "LOGIN",result:res})).catch((err)=>alert(err));
+            User.login(username, password).then(res=>dispatch({type: "LOGIN",result:res})).catch(error=>alert(error.response.body.msg));
         },
         onRedirect: () => dispatch({type: 'REDIRECTED'})
 

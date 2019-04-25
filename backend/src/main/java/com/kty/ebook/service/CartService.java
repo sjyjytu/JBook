@@ -31,7 +31,7 @@ public class CartService {
             boolean haveThisBook = false;
             for (int i = 0; i < cartJson.size(); i++) {
                 JSONObject jobj = cartJson.getJSONObject(i);
-                if (jobj.getIntValue("ISBN")==isbn) {
+                if (jobj.getIntValue("isbn")==isbn) {
                     int newNum = jobj.getInteger("num") + num;
                     jobj.put("num", newNum);
                     haveThisBook = true;
@@ -43,7 +43,7 @@ public class CartService {
                 JSONObject newBook = new JSONObject();
                 newBook.put("bookname", bookname);
                 newBook.put("num",num);
-                newBook.put("ISBN", isbn);
+                newBook.put("isbn", isbn);
                 cartJson.add(newBook);
             }
             cart.setBooks(cartJson.toJSONString());
@@ -56,7 +56,7 @@ public class CartService {
                 JSONObject newBook = new JSONObject();
                 newBook.put("bookname", bookname);
                 newBook.put("num",num);
-                newBook.put("ISBN", isbn);
+                newBook.put("isbn", isbn);
                 cartJson.add(newBook);
                 cart.setUserId(id);
                 cart.setBooks(cartJson.toJSONString());
@@ -75,7 +75,7 @@ public class CartService {
             JSONArray cartJson = JSONObject.parseArray(cart.getBooks());
             for (int i = 0; i < cartJson.size(); i++) {
                 JSONObject jobj = cartJson.getJSONObject(i);
-                if (jobj.getIntValue("ISBN")==isbn) {
+                if (jobj.getIntValue("isbn")==isbn) {
                     cartJson.remove(i);
                     break;
                 }

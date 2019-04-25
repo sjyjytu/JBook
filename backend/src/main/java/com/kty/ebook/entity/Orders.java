@@ -1,5 +1,9 @@
 package com.kty.ebook.entity;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 
 @Entity

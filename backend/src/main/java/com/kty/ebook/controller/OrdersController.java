@@ -28,10 +28,11 @@ public class OrdersController {
     @ApiOperation(value = "获取订单", notes = "根据id判断身份，显示当前用户订单或所有用户订单")
     @RequestMapping(value = "/show",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<JSONObject> show(@RequestBody String request){
-        JSONObject param = JSONObject.parseObject(request);
+    public ResponseEntity<JSONObject> show(@RequestParam(name = "_id") String id){
+        //JSONObject param = JSONObject.parseObject(request);
         JSONObject ret = new JSONObject();
-        long userId = Long.parseLong(param.getString("_id"));
+        //long userId = Long.parseLong(param.getString("_id"));
+        long userId = Long.parseLong(id);
         boolean isManager = userService.isManagerById(userId);
         List<Orders> orders;
         if (isManager) {
@@ -76,12 +77,13 @@ public class OrdersController {
     @ApiOperation(value = "统计数据", notes = "根据身份某时间段显示书籍销量和用户消费或用户购买的书籍情况")
     @RequestMapping(value = "/show/statistics/buy",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<JSONObject> statistics(@RequestBody String request){
-        JSONObject param = JSONObject.parseObject(request);
+    public ResponseEntity<JSONObject> statistics(@RequestParam(name = "_id") String id, @RequestParam(name = "startTime") String startTime,@RequestParam(name = "endTime") String endTime){
+        //JSONObject param = JSONObject.parseObject(request);
         JSONObject ret = new JSONObject();
-        long userId = Long.parseLong(param.getString("_id"));
-        String startTime = param.getString("startTime");
-        String endTime = param.getString("endTime");
+        //long userId = Long.parseLong(param.getString("_id"));
+        //String startTime = param.getString("startTime");
+        //String endTime = param.getString("endTime");
+        long userId = Long.parseLong(id);
         boolean isManager = userService.isManagerById(userId);
         if (isManager) {
             ret = ordersService.statisticsByUserByManager(startTime, endTime);

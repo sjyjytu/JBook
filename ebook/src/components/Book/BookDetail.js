@@ -113,8 +113,8 @@ class BookDetail extends React.Component{
     };
     render() {
         const {classes, books, _id} = this.props;
-        let targetISBN = parseInt(this.props.match.params.ISBN);
-        const [book] = books.filter(book=>book.ISBN===targetISBN);
+        let targetisbn = parseInt(this.props.match.params.isbn);
+        const [book] = books.filter(book=>book.isbn===targetisbn);
         let numValue;
         return (
             <div className={classes.superRoot}>
@@ -148,7 +148,7 @@ class BookDetail extends React.Component{
                             () => (_id === '' ? alert("请先登录") :
                                     (numValue.value > book.stockNum ? alert("库存不足") :
                                         (numValue.value <= 0 || numValue.value === 'undefined' ? alert("请正确填写数量") :
-                                            this.props.addToCart(_id, book.bookname, numValue.value, book.ISBN)))
+                                            this.props.addToCart(_id, book.bookname, numValue.value, book.isbn)))
                             )
                         }>
                             加入购物车
@@ -160,7 +160,7 @@ class BookDetail extends React.Component{
                                             this.props.buyNow(_id, [{
                                                 "bookname": book.bookname,
                                                 "num": numValue.value,
-                                                "ISBN": book.ISBN
+                                                "isbn": book.isbn
                                             }], "buy directly")))
                             )
                         }>
@@ -198,14 +198,14 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        addToCart: (_id, bookname, num, ISBN) => Book.addToCart(_id, bookname, num, ISBN).then(dispatch({
+        addToCart: (_id, bookname, num, isbn) => Book.addToCart(_id, bookname, num, isbn).then(dispatch({
             type: "ADD_TO_CART",
             bookname: bookname,
             num: num,
-            ISBN: ISBN
-        })).then(alert("加入购物车成功！")).catch(err => alert(err)),
+            isbn: isbn
+        })).then(alert("加入购物车成功！")).catch(error=>alert(error.response.body.msg)),
         buyNow: (_id, booksArr, mode) => Order.generateAnOrder(_id,booksArr,mode)
-            .then(alert("购买成功！")).catch(err => alert(err)),
+            .then(alert("购买成功！")).catch(error=>alert(error.response.body.msg)),
     }
 }
 

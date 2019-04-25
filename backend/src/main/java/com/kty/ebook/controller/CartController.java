@@ -27,17 +27,17 @@ public class CartController {
     @ApiOperation(value = "显示购物车", notes = "显示购物车")
     @RequestMapping(value = "/show",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<JSONObject> show(@RequestBody String request){
-        JSONObject param = JSONObject.parseObject(request);
+    public ResponseEntity<JSONObject> show(@RequestParam(name = "_id") String id){
+        //JSONObject param = JSONObject.parseObject(request);
         JSONObject ret = new JSONObject();
-        String id = param.getString("_id");
+        //String id = param.getString("_id");
         Cart cart = cartService.findCartById(Integer.parseInt(id));
         if(null != cart && !cart.getBooks().equals("")) {
             ret.put("books",JSONObject.parse(cart.getBooks()));
             return new ResponseEntity<>(ret, HttpStatus.OK);
         } else {
             ret.put("msg","no book.");
-            return new ResponseEntity<>(ret, HttpStatus.SERVICE_UNAVAILABLE);
+            return new ResponseEntity<>(ret, HttpStatus.EXPECTATION_FAILED);
         }
     }
 
@@ -49,7 +49,7 @@ public class CartController {
         JSONObject ret = new JSONObject();
         long id = param.getLongValue("_id");
         int num = param.getIntValue("num");
-        int isbn = param.getIntValue("ISBN");
+        int isbn = param.getIntValue("isbn");
         String bookname = param.getString("bookname");
         String result = cartService.addBook(id, bookname, num, isbn);
         ret.put("msg",result);
@@ -66,7 +66,7 @@ public class CartController {
         JSONObject param = JSONObject.parseObject(request);
         JSONObject ret = new JSONObject();
         long id = param.getLongValue("_id");
-        int isbn = param.getIntValue("ISBN");
+        int isbn = param.getIntValue("isbn");
         String bookname = param.getString("bookname");
         String result = cartService.removeBook(id, bookname, isbn);
         ret.put("msg",result);

@@ -3,10 +3,6 @@ var superagent = require('superagent');
 const RootUrl = 'http://localhost:8080';
 
 function resBody(res) {
-    if (res.status!==200)
-    {
-        throw res.body.msg;
-    }
     return res.body;
 }
 
@@ -19,15 +15,15 @@ const request = {
 //show books, add to cart, manage books and remove a book from cart
 export const Book = {
     showBooks: (start,num)=>request.getWith('/api/book/show',{"num":parseInt(num),"start":parseInt(start)}),
-    addToCart: (_id, bookname, num, ISBN) => request.post("/api/cart/add",{"_id":parseInt(_id),"bookname":bookname, "num": num, "ISBN": ISBN}),
-    removeFromCart: (_id, bookname, ISBN) => superagent.delete(RootUrl + "/api/cart/remove").set('Content-Type', 'application/json').send({
+    addToCart: (_id, bookname, num, isbn) => request.post("/api/cart/add",{"_id":parseInt(_id),"bookname":bookname, "num": num, "isbn": isbn}),
+    removeFromCart: (_id, bookname, isbn) => superagent.delete(RootUrl + "/api/cart/remove").set('Content-Type', 'application/json').send({
         "_id": parseInt(_id),
         "bookname": bookname,
-        "ISBN": ISBN
+        "isbn": isbn
     }).then(resBody),
     showCart: (_id) => request.getWith("/api/cart/show",{"_id": _id}),
-    getBookByISBN: (ISBN,start,num) => request.getWith('/api/book/showBy',{"ISBN": ISBN,"num":num,"start":start}),
-    getBookByName: (bookname,start,num) => request.getWith("/api/book/showBy",{"bookname": bookname,"num":num,"start":start}),
+    getBookByisbn: (isbn,start,num) => request.getWith('/api/book/showBy',{"isbn": parseInt(isbn),"num":num,"start":start}),
+    getBookByName: (bookname,start,num) => request.getWith("/api/book/showBy",{"bookname": bookname,"num":num,"start":start, "isbn": -1}),
 };
 
 //the action of manager add a book, delete a book, update a book, ban a user
@@ -37,13 +33,13 @@ export const Manage = {
             "bookname": bookname, "stockNum": stockNum, "summary": summary, "pictureUrl": pictureUrl, "author": author,
             "price": price
         }*/book),
-    deleteABook: (_id, bookname, ISBN) => superagent.delete(RootUrl + "/api/book/manage/delete").set('Content-Type', 'application/json')
-        .send({"bookname": bookname, "_id": _id, "ISBN": ISBN}).then(resBody),
-    updateABook: (/*bookname, stockNum, summary, pictureUrl, author, price, ISBN*/book) => superagent.put(RootUrl + "/api/book/manage/update")
+    deleteABook: (_id, bookname, isbn) => superagent.delete(RootUrl + "/api/book/manage/delete").set('Content-Type', 'application/json')
+        .send({"bookname": bookname, "_id": _id, "isbn": isbn}).then(resBody),
+    updateABook: (/*bookname, stockNum, summary, pictureUrl, author, price, isbn*/book) => superagent.put(RootUrl + "/api/book/manage/update")
         .set('Content-Type', 'application/json')
         .send(/*{
             "bookname": bookname, "stockNum": stockNum, "summary": summary, "pictureUrl": pictureUrl, "author": author,
-            "price": price, "ISBN": ISBN
+            "price": price, "isbn": isbn
         }*/book)
         .then(resBody),
     banAUser: _id => superagent.put(RootUrl + "/api/user/ban").set('Content-Type', 'application/json')

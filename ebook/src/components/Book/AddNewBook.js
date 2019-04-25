@@ -289,7 +289,7 @@ function mapDispatchToProps(dispatch) {
         addNewBook: (book) => {
             Manage.addABook(book)
                 .then(res=>dispatch({type:'ADD_BOOK',book:book}))
-                .catch((err)=>alert(err));
+                .catch(error=>alert(error.response.body.msg));
         },
         onRedirect: () => dispatch({type: 'REDIRECTED'})
     }

@@ -33,15 +33,15 @@ function BookDetail(state={books: [], update:false},action) {
             //只存当前页的书
             return Object.assign({},{books: action.result.books,update:state.update});
         case "ADD_BOOK":
-            //action.book {"bookname":  ,"stockNum":  , "summary":  ,"pictureUrl":  ,"price":  ,"author":  ,"ISBN":  }
+            //action.book {"bookname":  ,"stockNum":  , "summary":  ,"pictureUrl":  ,"price":  ,"author":  ,"isbn":  }
             const newState = Object.assign({}, state);
             newState.books.push(action.book);
             return newState;
         case "DELETE_BOOK":
-            //action.ISBN
+            //action.isbn
             const newState2 = Object.assign({}, state);
             for (let i = 0; i < newState2.books.length; i++) {
-                if (newState2.books[i].ISBN === action.ISBN) {
+                if (newState2.books[i].isbn === action.isbn) {
                     //cart has this book
                     newState2.books.splice(i, 1);
                     return newState2;
@@ -74,20 +74,20 @@ function BookAndNum(state={books: []},action) {
             //action.bookname action.num
             const newState = Object.assign({}, state);
             for (let i = 0; i < newState.books.length; i++) {
-                if (newState.books[i].ISBN === action.ISBN) {
+                if (newState.books[i].isbn === action.isbn) {
                     //cart has this book
                     newState.books[i].num += action.num;
                     return newState;
                 }
             }
             //cart doesn't have this book
-            newState.books.push({"bookname": action.bookname, "num": action.num,"ISBN":action.ISBN});
+            newState.books.push({"bookname": action.bookname, "num": action.num,"isbn":action.isbn});
             return newState;
         case "REMOVE_FROM_CART":
             const nState = Object.assign({}, state);
-            //action.ISBN
+            //action.isbn
             for (var i = 0; i < nState.books.length; i++) {
-                if (nState.books[i].ISBN === action.ISBN) {
+                if (nState.books[i].isbn === action.isbn) {
                     //cart has this book
                     nState.books.splice(i, 1);
                     return nState;
@@ -132,13 +132,13 @@ function Page(state={curPage:1, perPageNum: 2, total: 0}, action) {
     }
 }
 
-function Search(state={keyWord:'', by: 'ISBN'}, action) {
+function Search(state={keyWord:'', by: 'isbn'}, action) {
     switch (action.type) {
         case "SWITCH_BY":
-            if (state.by === 'ISBN') {
+            if (state.by === 'isbn') {
                 return Object.assign({}, state, {by: 'bookname'});
             } else {
-                return Object.assign({}, state, {by: 'ISBN'});
+                return Object.assign({}, state, {by: 'isbn'});
             }
         case "SET_KEY":
             const newState = Object.assign({}, state, {keyWord: action.keyWord});

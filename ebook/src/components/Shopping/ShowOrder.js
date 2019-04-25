@@ -66,7 +66,7 @@ class ShowOrder extends React.Component{
     }
 
     componentDidMount() {
-        Order.showOrder(this.props._id).then(res=> this.setState({orders:res.orders})).catch(err=>alert(err));
+        Order.showOrder(this.props._id).then(res=> this.setState({orders:res.orders})).catch(error=>alert(error.response.body.msg));
     }
 
     orderFilter(order, keyWord) {
@@ -95,7 +95,7 @@ class ShowOrder extends React.Component{
                             <Typography className={classes.title}>{order.createTime}</Typography>
                             <div className={classes.summary}>
                                 {
-                                    order.books.map(book=> {
+                                    JSON.parse(order.books).map(book=> {
                                         return <Typography>
                                                 {book.bookname + " * " + book.num}
                                         </Typography>;

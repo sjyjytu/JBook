@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,14 +23,13 @@ public class BookController {
     private BookService bookService;
 
     @ApiOperation(value = "获取书籍", notes = "分页获取指定数量的书籍")
-    @RequestMapping(value = "/show",method = RequestMethod.POST)
+    @RequestMapping(value = "/show",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<JSONObject> show(@RequestBody String request){
-        System.out.println("Book show called");
-        JSONObject param = JSONObject.parseObject(request);
+    public ResponseEntity<JSONObject> show(@RequestParam(name = "start") int start, @RequestParam(name = "num") int num){
+        //JSONObject param = JSONObject.parseObject(request);
         JSONObject ret = new JSONObject();
-        int start = param.getIntValue("start");
-        int num = param.getIntValue("num");
+        //int start = param.getParameter("start");
+        //int num = param.getIntValue("num");
         Page<Book> books = bookService.showBookLimit(start, num);
         if(null != books) {
             ret.put("books", books.getContent());
@@ -44,17 +44,21 @@ public class BookController {
     @ApiOperation(value = "查找书籍", notes = "根据书名或isbn查询书籍")
     @RequestMapping(value = "/showBy",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<JSONObject> showBy(@RequestBody String request){
-        JSONObject param = JSONObject.parseObject(request);
+    public ResponseEntity<JSONObject> showBy(@RequestParam(name = "start") int start, @RequestParam(name = "num") int num, @RequestParam(name = "isbn", required = false) long isbn, @RequestParam(name = "bookname", required = false) String bookname){
+        //JSONObject param = JSONObject.parseObject(request);
         JSONObject ret = new JSONObject();
-        int start = param.getIntValue("start");
-        int num = param.getIntValue("num");
-        long isbn = param.getLongValue("ISBN");
-        String bookname = param.getString("bookname");
+        //int start = param.getIntValue("start");
+        //int num = param.getIntValue("num");
+        //long isbn = param.getLongValue("isbn");
+        //String bookname = param.getString("bookname");
+        Page<Book> books;
         if (bookname == null) {
-            bookname = "";
+            books = bookService.findBookByIsbnLimit(isbn, start, num);
+        } else {
+            books = bookService.findBookByBooknameLimit(bookname, start, num);
         }
-        Page<Book> books = bookService.findBookByLimit(isbn, bookname,start, num);
+
+        System.out.println(books.getContent());
         if(null != books && books.getTotalElements()>0) {
             ret.put("books", books.getContent());
             ret.put("count", books.getTotalElements());
@@ -90,9 +94,10 @@ public class BookController {
     @RequestMapping(value = "/manage/delete",method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<JSONObject> remove(@RequestBody String request){
+        System.out.println("Book show called");
         JSONObject param = JSONObject.parseObject(request);
         JSONObject ret = new JSONObject();
-        long isbn = param.getLongValue("ISBN");
+        long isbn = param.getLongValue("isbn");
         //String bookname = param.getString("bookname");
         String result = bookService.deleteBook(isbn);
         ret.put("msg",result);
@@ -114,7 +119,7 @@ public class BookController {
         String summary = param.getString("summary");
         String author = param.getString("author");
         String pictureUrl = param.getString("pictureUrl");
-        long isbn = param.getLongValue("ISBN");
+        long isbn = param.getLongValue("isbn");
         Book book = new Book(price, bookname, num, summary, pictureUrl, author);
         book.setIsbn(isbn);
         String result = bookService.updateBook(book);

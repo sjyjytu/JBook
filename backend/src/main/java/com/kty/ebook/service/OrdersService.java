@@ -62,12 +62,13 @@ public class OrdersService {
             JSONObject userStatistic = new JSONObject();
             for (Orders order : orders) {
                 JSONArray books = JSONArray.parseArray(order.getBooks());
+//                JSONArray books = order.getBooks();
                 String id = String.valueOf(order.getUserId());
                 double consume = Double.parseDouble(order.getTotalPrice());
                 userStatistic.put(id, userStatistic.getDoubleValue(id)+ consume);
                 for (int i = 0; i < books.size(); i++) {
                     JSONObject book = books.getJSONObject(i);
-                    String isbn = String.valueOf(book.getLongValue("ISBN"));
+                    String isbn = String.valueOf(book.getLongValue("isbn"));
                     int num = book.getIntValue("num");
                     bookStatistic.put(isbn, bookStatistic.getIntValue(isbn)+ num);
                 }
@@ -95,10 +96,11 @@ public class OrdersService {
             for (Orders order : orders) {
                 JSONArray books = JSONArray.parseArray(order.getBooks());
                 double consume = Double.parseDouble(order.getTotalPrice());
+//                JSONArray books = order.getBooks();
                 bookStatistic.put("totalConsume", bookStatistic.getDoubleValue("totalConsume")+ consume);
                 for (int i = 0; i < books.size(); i++) {
                     JSONObject book = books.getJSONObject(i);
-                    String isbn = String.valueOf(book.getLongValue("ISBN"));
+                    String isbn = String.valueOf(book.getLongValue("isbn"));
                     int num = book.getIntValue("num");
                     bookStatistic.put(isbn, bookStatistic.getIntValue(isbn)+ num);
                 }
@@ -129,16 +131,16 @@ public class OrdersService {
         for (int i = 0; i < books.size(); i++) {
             JSONObject jobj = books.getJSONObject(i);
             int num = jobj.getIntValue("num");
-            long isbn = jobj.getLongValue("ISBN");
+            long isbn = jobj.getLongValue("isbn");
             Book curBook = bookService.findBookByIsbn(isbn);
             if (curBook == null || curBook.getIsDeleted()) {
                 //这本书被删了
-                errMsg = "book not found, ISBN: "+isbn;
+                errMsg = "book not found, isbn: "+isbn;
                 break;
             }
             if (curBook.getStockNum()<num) {
                 //这本书库存不足
-                errMsg = "book stockNum not enough, ISBN: "+isbn;
+                errMsg = "book stockNum not enough, isbn: "+isbn;
                 break;
             }
             //ok的，减掉
@@ -157,6 +159,7 @@ public class OrdersService {
                 Orders orders = new Orders();
                 orders.setBooks(books.toJSONString());
                 orders.setUserId(id);
+//                orders.setBooks(books);
                 orders.setTotalPrice(String.valueOf(totalPrice));
                 orders.setCreateTime(new Timestamp(new Date().getTime()));
                 ordersRepository.save(orders);

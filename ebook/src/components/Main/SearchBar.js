@@ -101,19 +101,19 @@ class SearchBar extends React.Component{
 
             } else {
                 await this.props.searchBtnClick();
-                if (by === 'ISBN') {
+                if (by === 'isbn') {
                     var regPos = /^\d+(\.\d+)?$/;
                     if (!regPos.test(key)) {
-                        alert("输入的ISBN格式不正确");
+                        alert("输入的isbn格式不正确");
                     } else {
-                        Book.getBookByISBN(key,this.props.curPage,this.props.perPageNum)
+                        Book.getBookByisbn(key,this.props.curPage,this.props.perPageNum)
                             .then(res => this.props.searchBooks(res))
-                            .catch(err => {alert(err);});
+                            .catch(error=>alert(error.response.body.msg));
                     }
                 } else {
                     Book.getBookByName(key,this.props.curPage,this.props.perPageNum)
                         .then(res => this.props.searchBooks(res))
-                        .catch(err => {alert(err);window.open('https://www.baidu.com/s?wd=' + key, '_blank')});
+                        .catch(err => {alert(err.response.body.msg);window.open('https://www.baidu.com/s?wd=' + key, '_blank')});
                 }
             }
         }
@@ -140,12 +140,12 @@ class SearchBar extends React.Component{
                                 通过以下方式查找书:
                             </Typography>
                             <Radio
-                                checked={this.props.by === 'ISBN'}
+                                checked={this.props.by === 'isbn'}
                                 onChange={this.handleRadioChange}
-                                value="ISBN"
+                                value="isbn"
                                 name="radio-button"
-                                aria-label="ISBN"
-                                checkedIcon={"ISBN"}
+                                aria-label="isbn"
+                                checkedIcon={"isbn"}
                                 className={this.props.location.pathname === "/order"?classes.hidden:null}
                             />
                             <Radio

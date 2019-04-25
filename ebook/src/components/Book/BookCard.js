@@ -61,17 +61,17 @@ class BookCard extends React.Component{
                         {book.price}
                     </Button>
                     {!isManager?
-                        <Link to={'book/' + book.ISBN}>
+                        <Link to={'book/' + book.isbn}>
                             详情
                         </Link>:
-                        <Link to={'update/' + book.ISBN}>
+                        <Link to={'update/' + book.isbn}>
                             修改
                         </Link>
                     }
                     {
                         isManager?
                             <IconButton className={classes.deleteButton}
-                            onClick={()=>deleteBook(_id, book.bookname, book.ISBN)}>
+                            onClick={()=>deleteBook(_id, book.bookname, book.isbn)}>
                                 <Delete/>
                             </IconButton>
                             :null

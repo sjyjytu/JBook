@@ -138,10 +138,10 @@ class UpdateBook extends React.Component{
     constructor(props) {
         super(props);
         const booksArr = this.props.booksArr;
-        let targetISBN = parseInt(this.props.match.params.ISBN);
-        const [book] = booksArr.filter(book=>book.ISBN===targetISBN);
+        let targetisbn = parseInt(this.props.match.params.isbn);
+        const [book] = booksArr.filter(book=>book.isbn===targetisbn);
         this.state = {bookname: book.bookname, summary: book.summary, uploadImgUrl: book.pictureUrl,
-            price: book.price, author: book.author, stockNum: book.stockNum, ISBN: targetISBN};
+            price: book.price, author: book.author, stockNum: book.stockNum, isbn: targetisbn};
         this.handleInputChange = field=> e => {
             const state = this.state;
             const newState = Object.assign({}, state, {[field]: e.target.value});
@@ -202,7 +202,7 @@ class UpdateBook extends React.Component{
                                             "pictureUrl": this.state.uploadImgUrl,
                                             "author": this.state.author,
                                             "price": parseFloat(this.state.price),
-                                            "ISBN": this.state.ISBN
+                                            "isbn": this.state.isbn
                                         }
                                     )
                                 }
@@ -296,7 +296,7 @@ function mapDispatchToProps(dispatch) {
         updateBook: (book) => {
             Manage.updateABook(book)
                 .then(()=>dispatch({type:'UPDATE_BOOK',book:book}))
-                .catch((err)=>alert(err));
+                .catch((err)=>alert(err.res.body.msg));
         },
         onRedirect: () => dispatch({type: 'REDIRECTED'})
     }

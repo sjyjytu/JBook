@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -70,7 +71,8 @@ public class UserController {
     @ApiOperation(value = "显示用户", notes = "显示所有用户")
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<JSONObject> showUsers(@RequestBody String request){
+    public ResponseEntity<JSONObject> showUsers(){
+
         JSONObject ret = new JSONObject();
         List<User> users = userService.findAllUsers();
         if (users == null) {
@@ -78,7 +80,16 @@ public class UserController {
             return new ResponseEntity<>(ret, HttpStatus.SERVICE_UNAVAILABLE);
 
         } else {
-            ret.put("users",users);
+            List<JSONObject> retUsers = new LinkedList<>();
+            for (User user : users) {
+                JSONObject retUser = new JSONObject();
+                retUser.put("_id", user.getId());
+                retUser.put("username", user.getUsername());
+                retUser.put("isManager", user.getIsManager());
+                retUser.put("isBanned", user.getIsBanned());
+                retUsers.add(retUser);
+            }
+            ret.put("users",retUsers);
             return new ResponseEntity<>(ret, HttpStatus.OK);
         }
     }

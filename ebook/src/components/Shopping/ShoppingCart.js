@@ -66,14 +66,14 @@ class ShoppingCart extends React.Component{
     }
 
     componentDidMount() {
-        Book.showCart(this.props._id).then(res=> this.setState({cart:res.books})).catch(err=>alert(err.message));
+        Book.showCart(this.props._id).then(res=> this.setState({cart:res.books})).catch(err=>alert(err.response.body.msg));
     }
 
-    removeButtonClick = (_id, bookname, ISBN) =>
-        Book.removeFromCart(_id, bookname, ISBN).then(() => {
+    removeButtonClick = (_id, bookname, isbn) =>
+        Book.removeFromCart(_id, bookname, isbn).then(() => {
                 const oldCart = this.state.cart;
                 console.log(oldCart);
-                const newCart = oldCart.filter(book=>ISBN!==book.ISBN);
+                const newCart = oldCart.filter(book=>isbn!==book.isbn);
                 console.log(newCart);
                 this.setState({cart: newCart});
             }
@@ -87,16 +87,16 @@ class ShoppingCart extends React.Component{
                 <Header/>
                 <div className={classes.root}>
                     {cart.map(book =>
-                        <React.Fragment key={book.ISBN}>
+                        <React.Fragment key={book.isbn}>
                             <Toolbar>
                                 <Avatar className={classes.avatar} alt="Book" children="书"/>
-                                <Typography variant="h6">{book.ISBN}</Typography>
+                                <Typography variant="h6">{book.isbn}</Typography>
                             </Toolbar>
                             <Typography className={classes.title}>{book.bookname}</Typography>
                             <Typography className={classes.summary}>{"数量：" + book.num}</Typography>
-                            <Link to={'book/' + book.ISBN} className={classes.link}>详情</Link>
+                            <Link to={'book/' + book.isbn} className={classes.link}>详情</Link>
                             <Button variant="contained" color="secondary" className={classes.deleteButton}
-                                    onClick={() => this.removeButtonClick(this.props._id, book.bookname, book.ISBN)}>
+                                    onClick={() => this.removeButtonClick(this.props._id, book.bookname, book.isbn)}>
                                 不要你了
                                 <DeleteIcon className={classes.rightIcon}/>
                             </Button>
@@ -106,7 +106,7 @@ class ShoppingCart extends React.Component{
                 </div>
                 <Button variant="contained" color="secondary" className={classes.deleteButton}
                         onClick={() => Order.generateAnOrder(this.props._id, this.state.cart, "buy by cart").then(this.setState({cart:[]}))
-                            .catch(err=>alert(err.error))}>
+                            .catch(err=>alert(err.res.body.msg))}>
                     结算
                     <DeleteIcon className={classes.rightIcon}/>
                 </Button>
@@ -126,9 +126,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        /*removeButtonClick: (_id, bookname, ISBN) => Book.removeFromCart(_id, bookname, ISBN).then(dispatch({
+        /*removeButtonClick: (_id, bookname, isbn) => Book.removeFromCart(_id, bookname, isbn).then(dispatch({
             type: 'REMOVE_FROM_CART',
-            ISBN: ISBN
+            isbn: isbn
         })).catch(() => alert('delete article failed, please try again')),*/
         //storeCart: res=> dispatch({type:"SHOW_CART",result:res})
     }

@@ -40,7 +40,7 @@ class BooksPage extends React.Component{
 
     componentDidMount() {
         Book.showBooks(this.props.curPage,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);
-        return this.props.storePageBooks(res)}).catch(err=>alert(err));
+        return this.props.storePageBooks(res)}).catch(error=>alert(error.response.body.msg));
     }
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.curPage!==nextProps.curPage || this.props.update!==nextProps.update)
@@ -54,20 +54,20 @@ class BooksPage extends React.Component{
     bookPageOnChange(page){
         if (this.props.keyWord==="" || this.props.keyWord===undefined)
         {
-            Book.showBooks(page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(err=>alert(err));
+            Book.showBooks(page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(error=>alert(error.response.body.msg));
         }
         else
         {
-            if (this.props.by === 'ISBN') {
-                Book.getBookByISBN(this.props.keyWord,page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(err => err);
+            if (this.props.by === 'isbn') {
+                Book.getBookByisbn(this.props.keyWord,page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(error=>alert(error.response.body.msg));
             } else {
-                Book.getBookByName(this.props.keyWord,page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(err => err);
+                Book.getBookByName(this.props.keyWord,page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(error=>alert(error.response.body.msg));
             }
         }
     }
 
-    deleteBook(_id, bookname, ISBN) {
-        Manage.deleteABook(_id, bookname, ISBN).then(this, this.props.deleteBook(ISBN)).catch(err => alert(err));
+    deleteBook(_id, bookname, isbn) {
+        Manage.deleteABook(_id, bookname, isbn).then(this, this.props.deleteBook(isbn)).catch(error=>alert(error.response.body.msg));
         this.forceUpdate();
     }
         render() {
@@ -118,7 +118,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         storePageBooks: res => dispatch({type:"SHOW_BOOK",result:res}),
-        deleteBook: ISBN=>dispatch({type:"DELETE_BOOK",ISBN:ISBN}),
+        deleteBook: isbn=>dispatch({type:"DELETE_BOOK",isbn:isbn}),
         setTotal: total=>dispatch({type:"SET_TOTAL",total:total})
     }
 }

@@ -25,12 +25,24 @@ public class BookService {
         }
         return book;
     }
-    public Page<Book> findBookByLimit(long isbn, String name, int start, int num) {
+    public Page<Book> findBookByIsbnLimit(long isbn, int start, int num) {
         Page<Book> page = null;
         try {
             Sort sort = new Sort(Sort.Direction.ASC, "isbn");
             Pageable pageable = new PageRequest(start-1, num, sort);
-            page = bookRepository.findBooksByIsbnIsOrBooknameLike(isbn, "%"+name+"%", pageable);
+            page = bookRepository.findBooksByIsbnIsAndIsDeletedFalse(isbn, pageable);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return page;
+    }
+
+    public Page<Book> findBookByBooknameLimit(String name, int start, int num) {
+        Page<Book> page = null;
+        try {
+            Sort sort = new Sort(Sort.Direction.ASC, "isbn");
+            Pageable pageable = new PageRequest(start-1, num, sort);
+            page = bookRepository.findBooksByBooknameLikeAndIsDeletedFalse("%"+name+"%", pageable);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -42,7 +54,7 @@ public class BookService {
         try {
             Sort sort = new Sort(Sort.Direction.DESC, "isbn");
             Pageable pageable = new PageRequest(start-1, num, sort);
-            page = bookRepository.findAll(pageable);
+            page = bookRepository.findAllByIsDeletedFalse(pageable);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
