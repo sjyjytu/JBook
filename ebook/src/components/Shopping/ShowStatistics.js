@@ -80,8 +80,8 @@ class ShowStatistics extends React.Component{
                 xdata:[],
                 ydata:[],
             },
-            startTime:"2017-05-24T10:30",
-            endTime:"2019-05-24T10:30"
+            startTime:"2017-08-01T05:20",
+            endTime:"2019-05-24T13:14"
         };
         this.handleTextFieldChange = name => event =>{
             this.setState({[name]:event.target.value})
@@ -90,14 +90,14 @@ class ShowStatistics extends React.Component{
     }
 
 
-    // componentDidMount() {
-    //     this.checkBtnClick(4, "2019-01-29 00:00:00", "2019-04-29 00:00:00")
-    // }
+    componentDidMount() {
+        this.checkBtnClick()
+    }
 
-    checkBtnClick(_id){
+    checkBtnClick(){
         const startTime = this.state.startTime.replace('T',' ') + ':00';
         const endTime = this.state.endTime.replace('T',' ') + ':00';
-        Order.showStatistics(_id, startTime, endTime).then(res=>{
+        Order.showStatistics(this.props._id, startTime, endTime).then(res=>{
                 const book = res.book;
                 const bookX = [];
                 const bookY = [];
@@ -151,7 +151,7 @@ class ShowStatistics extends React.Component{
                         onChange={this.handleTextFieldChange('endTime')}
                     />
                 </form>
-                <Button onClick={()=>this.checkBtnClick(this.props._id)}>
+                <Button onClick={()=>this.checkBtnClick()}>
                     查询
                 </Button>
                 <Chart data={this.state.bookData} text={'书籍情况'} yname={'购买数量'} xname={'书籍isbn'} chartId={'main1'}/>
