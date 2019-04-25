@@ -260,7 +260,8 @@ class UpdateBook extends React.Component{
                                         }
                                     }
                                     }/>
-                                    <button className={this.props.classes.imgButton} onClick={() => this.image.click()}>
+                                    <button className={this.props.classes.imgButton} onClick={() => this.image.click()}
+                                    type="button">
                                         {this.state.uploadImgUrl === '' ?
                                             <p>pick cover</p> :
                                             <img className={this.props.classes.img} src={this.state.uploadImgUrl}/>}
