@@ -83,6 +83,9 @@ public class OrdersController {
         //long userId = Long.parseLong(param.getString("_id"));
         //String startTime = param.getString("startTime");
         //String endTime = param.getString("endTime");
+        System.out.println(id);
+        System.out.println(startTime);
+        System.out.println(endTime);
         long userId = Long.parseLong(id);
         boolean isManager = userService.isManagerById(userId);
         if (isManager) {

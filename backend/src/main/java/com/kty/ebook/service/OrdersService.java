@@ -93,11 +93,13 @@ public class OrdersService {
                 throw new Exception("no order at that time.");
             }
             JSONObject bookStatistic = new JSONObject();
+            double totalConsume = 0;
             for (Orders order : orders) {
                 JSONArray books = JSONArray.parseArray(order.getBooks());
                 double consume = Double.parseDouble(order.getTotalPrice());
 //                JSONArray books = order.getBooks();
-                bookStatistic.put("totalConsume", bookStatistic.getDoubleValue("totalConsume")+ consume);
+//                bookStatistic.put("totalConsume", bookStatistic.getDoubleValue("totalConsume")+ consume);
+                totalConsume += consume;
                 for (int i = 0; i < books.size(); i++) {
                     JSONObject book = books.getJSONObject(i);
                     String isbn = String.valueOf(book.getLongValue("isbn"));
@@ -106,6 +108,7 @@ public class OrdersService {
                 }
             }
             ret.put("book", bookStatistic);
+            ret.put("totalConsume",totalConsume);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             ret.put("msg", "no order at that time");

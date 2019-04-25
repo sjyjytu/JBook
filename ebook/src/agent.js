@@ -50,7 +50,7 @@ export const Manage = {
 export const Order = {
     showOrder: _id => {return request.getWith("/api/order/show",{"_id": _id})},
     generateAnOrder: (_id, booksArr, mode) => request.post("/api/order/generate", {"_id": _id, "books": booksArr, "mode": mode}),
-    showStatistics: (_id, startTime,endTime) => request.getWith("api/order/show/statistics/buy", {"_id":_id,"startTime":startTime,"endTime":endTime})
+    showStatistics: (_id, startTime,endTime) => request.getWith("/api/order/show/statistics/buy", {"_id":_id,"startTime":startTime,"endTime":endTime})
 };
 
 //

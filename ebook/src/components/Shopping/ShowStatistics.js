@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Header from '../Header';
 import {connect} from "react-redux";
-//import {Order} from "../../agent";
+import {Order} from "../../agent";
+import TextField from '@material-ui/core/TextField';
 import SearchBar from '../Main/SearchBar';
 import Chart from './Chart';
+import {Button} from "@material-ui/core";
 
 
 const styles = theme => ({
@@ -51,7 +53,16 @@ const styles = theme => ({
     },
     price:{
 
-    }
+    },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
 });
 
 
@@ -60,10 +71,53 @@ class ShowStatistics extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            data:{
+            bookData:{
+                xdata: [],
+                ydata: [],
+                totalConsume: 0
+            },
+            userData:{
+                xdata:[],
+                ydata:[],
+            },
+            startTime:"2017-05-24T10:30",
+            endTime:"2019-05-24T10:30"
+        };
+        this.handleTextFieldChange = name => event =>{
+            this.setState({[name]:event.target.value})
+        };
+        this.checkBtnClick = this.checkBtnClick.bind(this);
+    }
 
+
+    // componentDidMount() {
+    //     this.checkBtnClick(4, "2019-01-29 00:00:00", "2019-04-29 00:00:00")
+    // }
+
+    checkBtnClick(_id){
+        const startTime = this.state.startTime.replace('T',' ') + ':00';
+        const endTime = this.state.endTime.replace('T',' ') + ':00';
+        Order.showStatistics(_id, startTime, endTime).then(res=>{
+                const book = res.book;
+                const bookX = [];
+                const bookY = [];
+                for (var i in book){
+                    bookX.push(i);
+                    bookY.push(book[i]);
+                }
+                this.setState({bookData:{xdata: bookX,ydata: bookY,totalConsume: res.totalConsume}})
+                if (this.props.isManager){
+                    const user = res.user;
+                    const userX = [];
+                    const userY = [];
+                    for (var i in user){
+                        userX.push(i);
+                        userY.push(user[i]);
+                    }
+                    this.setState({userData:{xdata: userX,ydata: userY}})
+                }
             }
-        }
+        )
     }
 
     render() {
@@ -71,15 +125,41 @@ class ShowStatistics extends React.Component{
         return (
             <div className={classes.superRoot}>
                 <Header/>
-                <SearchBar/>
-                <Chart data={{
-                    xdata: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-                    ydata: {
-                        ydata1:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-                        ydata2:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-                    }
-                }}
-                />
+                <form className={classes.container} noValidate>
+                    <TextField
+                        id="startTime"
+                        label="startTime"
+                        type="datetime-local"
+                        value={this.state.startTime}
+                        className={classes.textField}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={this.handleTextFieldChange('startTime')}
+                    />
+                </form>
+                <form className={classes.container} noValidate>
+                    <TextField
+                        id="endTime"
+                        label="endTime"
+                        type="datetime-local"
+                        defaultValue={this.state.endTime}
+                        className={classes.textField}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        onChange={this.handleTextFieldChange('endTime')}
+                    />
+                </form>
+                <Button onClick={()=>this.checkBtnClick(this.props._id)}>
+                    查询
+                </Button>
+                <Chart data={this.state.bookData} text={'书籍情况'} yname={'购买数量'} xname={'书籍isbn'} chartId={'main1'}/>
+                {
+                    this.props.isManager?
+                        <Chart data={this.state.userData} text={'用户情况'} yname={'花费金额'} xname={'用户id'} chartId={'main2'}/>
+                        :null
+                }
             </div>
         );
     }
@@ -91,8 +171,8 @@ ShowStatistics.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        //_id: state.Login._id/*, cart:BookAndNum.books*/,
-        //keyWord: state.Search.keyWord,
+        isManager:state.Login.isManager,
+        _id:state.Login._id,
     };
 }
 

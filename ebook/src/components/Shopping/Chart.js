@@ -11,17 +11,21 @@ import 'echarts/lib/component/markLine';
 
 
 class Chart extends React.Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.initEchart = this.initEchart.bind(this);
+    }
+    initEchart() {
         // 初始化
-        var myChart = echarts.init(document.getElementById('main'));
+        var myChart = echarts.init(document.getElementById(this.props.chartId));
         // 绘制图表
         myChart.setOption({
-            title: { text: '某地区蒸发量和降水量' },
+            title: { text: this.props.text },
             tooltip : {
                 trigger: 'axis'
             },
             legend: {
-                data:['蒸发量','降水量']
+                data:[this.props.yname,]
             },
             toolbox: {
                 show : true,
@@ -37,6 +41,7 @@ class Chart extends React.Component {
             },
             xAxis : [
                 {
+                    name : this.props.xname,
                     type : 'category',
                     data : this.props.data.xdata
                 }
@@ -48,9 +53,9 @@ class Chart extends React.Component {
             ],
             series : [
                 {
-                    name:'蒸发量',
+                    name:this.props.yname,
                     type:'bar',
-                    data: this.props.data.ydata.ydata1,
+                    data: this.props.data.ydata,
                     markPoint : {
                         data : [
                             {type : 'max', name: '最大值'},
@@ -63,28 +68,19 @@ class Chart extends React.Component {
                         ]
                     }
                 },
-                {
-                    name:'降水量',
-                    type:'bar',
-                    data: this.props.data.ydata.ydata2,
-                    markPoint : {
-                        data : [
-                            {type : 'max', name: '最大值'},
-                            {type : 'min', name: '最小值'}
-                        ]
-                    },
-                    markLine : {
-                        data : [
-                            {type : 'average', name : '平均值'}
-                        ]
-                    }
-                },
             ]
         });
     }
+    componentDidMount() {
+        this.initEchart();
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.initEchart();
+    }
+
     render() {
         return (
-            <div id="main" style={{ width: '100%', height: 500 }}></div>
+            <div id={this.props.chartId} style={{ width: 800, height: 500 }}></div>
         );
     }
 }

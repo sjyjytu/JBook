@@ -70,10 +70,13 @@ class Header extends React.Component{
                             <Home className={classes.buttonIcon}/>
                             主页
                         </Button>
-                        <Button color="inherit" className={classes.button} href="#/statistics">
-                            <Home className={classes.buttonIcon}/>
-                            数据统计
-                        </Button>
+                        {Login._id !== "" ?
+                            <Button color="inherit" className={classes.button} href="#/statistics">
+                                <Home className={classes.buttonIcon}/>
+                                数据统计
+                            </Button>
+                            :null
+                        }
                         {Login._id !== "" ?
                             (
                                 Login.isManager ?
