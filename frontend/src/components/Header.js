@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Home from '@material-ui/icons/Home';
 import Menu from '@material-ui/core/Menu';
+import Comment from '@material-ui/icons/Comment';
 import MenuItem from '@material-ui/core/MenuItem';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Login from './Login';
@@ -69,6 +70,10 @@ class Header extends React.Component{
                         <Button color="inherit" className={classes.button} href="#">
                             <Home className={classes.buttonIcon}/>
                             主页
+                        </Button>
+                        <Button color="inherit" className={classes.button} href="http://www.ketianya.xyz/ketianya/#/">
+                            <Comment className={classes.buttonIcon}/>
+                            论坛
                         </Button>
                         {Login._id !== "" ?
                             <Button color="inherit" className={classes.button} href="#/statistics">
