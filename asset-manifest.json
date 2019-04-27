@@ -1,12 +1,12 @@
 {
-  "main.js": "/JBook/static/js/main.7b0a0d6c.chunk.js",
-  "main.js.map": "/JBook/static/js/main.7b0a0d6c.chunk.js.map",
+  "main.js": "/JBook/static/js/main.16c21df9.chunk.js",
+  "main.js.map": "/JBook/static/js/main.16c21df9.chunk.js.map",
   "runtime~main.js": "/JBook/static/js/runtime~main.2d8bf87d.js",
   "runtime~main.js.map": "/JBook/static/js/runtime~main.2d8bf87d.js.map",
-  "static/js/2.f277fc5b.chunk.js": "/JBook/static/js/2.f277fc5b.chunk.js",
-  "static/js/2.f277fc5b.chunk.js.map": "/JBook/static/js/2.f277fc5b.chunk.js.map",
+  "static/js/2.42e3b746.chunk.js": "/JBook/static/js/2.42e3b746.chunk.js",
+  "static/js/2.42e3b746.chunk.js.map": "/JBook/static/js/2.42e3b746.chunk.js.map",
   "index.html": "/JBook/index.html",
-  "precache-manifest.95930dc661b39ae46fe4c6595b5b915f.js": "/JBook/precache-manifest.95930dc661b39ae46fe4c6595b5b915f.js",
+  "precache-manifest.407e5a538f093fb3ab3467efb47031e8.js": "/JBook/precache-manifest.407e5a538f093fb3ab3467efb47031e8.js",
   "service-worker.js": "/JBook/service-worker.js",
   "static/media/signin4.jpg": "/JBook/static/media/signin4.d1971858.jpg"
 }
