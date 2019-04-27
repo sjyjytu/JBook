@@ -53,15 +53,15 @@
 
 1. I input the username with 1' or '1'='1 maliciously. And password I try 123
 
-![login](G:\WebCode\JBook\Share\sql_injection\login.png)
+![login](Share/sql_injection/login.png)
 
 2. Then I got the sql statement at my backend as below:
 
-![sql_statement](G:\WebCode\JBook\Share\sql_injection\sql_statement.png)
+![sql_statement](Share/sql_injection/sql_statement.png)
 
 3. And then I sign in my website successfully as someone whose password is 123
 
-![result](G:\WebCode\JBook\Share\sql_injection\result.png)
+![result](Share/sql_injection/result.png)
 
 4. But then I found that it's accidental because the one whose id is 1 and his password is exactly 123, if not, I couldn't sign in. What I mean is that this injection only suits the case that I know the password of the one whose id must be  1, but don't know his username, then I can login as him. It's rediculous. How can I know one's password but don't know his username?
 
