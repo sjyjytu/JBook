@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {User} from "../agent";
 import { withStyles } from '@material-ui/core/styles';
 import {connect} from "react-redux";
-import bgImg from '../img/login.jpg';
+import bgImg from '../img/signin4.jpg';
 
 const styles = theme => ({
     submit:{
