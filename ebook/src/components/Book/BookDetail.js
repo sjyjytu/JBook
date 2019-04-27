@@ -168,8 +168,8 @@ class BookDetail extends React.Component{
                         </Button>
                     </div>
                     <div className={classes.right}>
-                        广告位招租
-                        客天涯是一个大帅b
+                        广告位招租：1元/条
+                        --客天涯是一个大帅b
                     </div>
 
                 </div>

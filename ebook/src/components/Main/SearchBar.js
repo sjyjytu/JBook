@@ -130,7 +130,7 @@ class SearchBar extends React.Component{
                 <Grid container spacing={24} alignItems="center">
                     <Grid item xs={6}>
                         <Typography className={classes.title} variant="h2" color="secondary" noWrap>
-                            e-book
+                            j-bu ok-y
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>

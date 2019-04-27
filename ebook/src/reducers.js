@@ -115,7 +115,7 @@ function Order(state={orders:[]},action) {
     }
 }
 
-function Page(state={curPage:1, perPageNum: 2, total: 0}, action) {
+function Page(state={curPage:1, perPageNum: 10, total: 0}, action) {
     switch (action.type) {
         case "NEXT_PAGE":
             return Object.assign({}, state, {curPage: state.curPage + 1});

@@ -6,6 +6,7 @@ import theme from './theme';
 import {MuiThemeProvider} from "@material-ui/core/styles";
 import store from './configureStore';
 
+document.title = "客天涯购书网";
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider theme={theme}>

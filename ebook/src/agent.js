@@ -1,7 +1,7 @@
 var superagent = require('superagent');
 
 // const RootUrl = 'http://localhost:8080';
-const RootUrl = 'http://47.103.0.246:80';
+const RootUrl = 'http://47.103.0.246:8080';
 
 function resBody(res) {
     return res.body;
