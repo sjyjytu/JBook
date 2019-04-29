@@ -16,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Book/BookDetail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="184" column="50" lean-forward="true" selection-start-line="184" selection-start-column="50" selection-end-line="184" selection-end-column="50" />
+            <state relative-caret-position="392">
+              <caret line="125" column="37" selection-start-line="125" selection-start-column="37" selection-end-line="125" selection-end-column="37" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -28,10 +28,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Book/Comments.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
+            <state relative-caret-position="686">
               <caret line="84" column="105" selection-start-line="84" selection-start-column="105" selection-end-line="84" selection-end-column="105" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -143,8 +143,8 @@
         <option value="$PROJECT_DIR$/src/Routers.js" />
         <option value="$PROJECT_DIR$/src/agent.js" />
         <option value="$PROJECT_DIR$/src/components/Book/Comment.js" />
-        <option value="$PROJECT_DIR$/src/components/Book/BookDetail.js" />
         <option value="$PROJECT_DIR$/src/components/Book/Comments.js" />
+        <option value="$PROJECT_DIR$/src/components/Book/BookDetail.js" />
       </list>
     </option>
   </component>
@@ -289,12 +289,12 @@
       <workItem from="1556347292117" duration="1843000" />
       <workItem from="1556351087965" duration="1694000" />
       <workItem from="1556357167133" duration="1628000" />
-      <workItem from="1556533461659" duration="9881000" />
+      <workItem from="1556533461659" duration="11042000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="256734000" />
+    <option name="totallyTimeSpent" value="257895000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -306,7 +306,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="364" y="58" width="1571" height="894" extended-state="0" />
+    <frame x="968" y="97" width="1571" height="894" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -588,16 +588,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Book/BookDetail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="184" column="50" lean-forward="true" selection-start-line="184" selection-start-column="50" selection-end-line="184" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -614,8 +604,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Book/Comments.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
+        <state relative-caret-position="686">
           <caret line="84" column="105" selection-start-line="84" selection-start-column="105" selection-end-line="84" selection-end-column="105" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Book/BookDetail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="125" column="37" selection-start-line="125" selection-start-column="37" selection-end-line="125" selection-end-column="37" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

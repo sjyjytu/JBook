@@ -107,15 +107,23 @@ class BookDetail extends React.Component{
         super(props);
         this.state = {
             value: 0,
+            book:{
+
+            }
         };
+    }
+    componentDidMount() {
+        let targetisbn = parseInt(this.props.match.params.isbn);
+        Book.getBookByisbn(targetisbn,1,1).then(res=>this.setState({book:res.books[0]})).catch(err=>alert(err.response.body.msg));
     }
     handleChange = (event, value) => {
         this.setState({ value });
     };
     render() {
         const {classes, books, _id} = this.props;
-        let targetisbn = parseInt(this.props.match.params.isbn);
-        const [book] = books.filter(book=>book.isbn===targetisbn);
+        //let targetisbn = parseInt(this.props.match.params.isbn);
+        //const [book] = books.filter(book=>book.isbn===targetisbn);
+        const book = this.state.book;
         let numValue;
         return (
             <div className={classes.superRoot}>
