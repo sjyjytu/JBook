@@ -19,7 +19,7 @@ public class BookCommentServiceImpl implements BookCommentService{
 
     @Override
     public BookComment findBookCommentsOrNew(long isbn) {
-        Optional<BookComment> bookComment = bookCommentRepository.findById(isbn);
+        Optional<BookComment> bookComment = bookCommentRepository.findBookCommentByIsbn(isbn);
         BookComment bc = null;
         if (!bookComment.isPresent()) {
             bc = new BookComment();

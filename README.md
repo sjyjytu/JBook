@@ -83,3 +83,6 @@ hints: I had fix this bug by using hibernate, so you can no longer enjoy it.
   * the variable name of react can not be 'key'
   * the column name of the database should obey the normal rule: 'is_manager' but not 'isManager'
 * Deploy matters
+  * port mapping in docker
+    * open the security group in aliyun
+    * docker run ... -p 8888:8080, here 8888 is the port open in aliyun and if you want to visit it you should add ip_address:8888 and 8080 is the port of your app(set in application.properties)

@@ -28,4 +28,5 @@ public class BookComment {
     public void setReplies(List<Comment> replies) {
         this.replies = replies;
     }
+
 }

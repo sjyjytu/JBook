@@ -12,6 +12,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {connect} from "react-redux";
 import {Book,Order} from '../../agent';
+import Comments from "./Comments";
 
 const styles = theme => ({
     superRoot: {
@@ -185,6 +186,7 @@ class BookDetail extends React.Component{
                     </BottomNavigation>
                     <Divider/>
                 </div>
+                <Comments isbn={targetisbn}/>
             </div>
         );
     }

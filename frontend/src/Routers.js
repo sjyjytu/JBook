@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter, Route, Switch} from 'react-router-dom';
+import {HashRouter, Redirect, Route, Switch} from 'react-router-dom';
 import HomePage from './components/Main/HomePage';
 import BooksPage from './components/Book/BooksPage';
 import BookDetail from "./components/Book/BookDetail";
@@ -27,6 +27,7 @@ const BasicRoute = () => {
                 <Route exact path="/manage-users" component={ManageUser}/>
                 <Route exact path="/order" component={ShowOrder}/>
                 <Route exact path="/statistics" component={ShowStatistics}/>
+                <Redirect to={{pathname:'/'}}/>
             </Switch>
         </HashRouter>
     );

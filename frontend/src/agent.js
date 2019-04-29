@@ -1,7 +1,7 @@
 var superagent = require('superagent');
 
-// const RootUrl = 'http://localhost:8080';
-const RootUrl = 'http://47.103.0.246:8080';
+const RootUrl = 'http://localhost:8080';
+// const RootUrl = 'http://47.103.0.246:8080';
 
 function resBody(res) {
     return res.body;
@@ -59,4 +59,16 @@ export const User = {
     login: (username, password) => request.post('/api/user/login',{"username":username, "password": password}),
     signup: (username, password, email) => request.post('/api/user/signup',{"username":username, "password": password,
         "email": email})
+};
+
+export const Comment = {
+    showComment: (isbn) => request.getWith("/api/comment/show",{"isbn":isbn}),
+    addComment: (isbn, userId, indexArr, username, comment_content) => request.post("/api/comment/add",
+        {
+            "isbn":parseInt(isbn),
+            "userId":parseInt(userId),
+            "index":indexArr,
+            "username":username,
+            "content":comment_content
+        })
 };
