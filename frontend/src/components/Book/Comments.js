@@ -82,7 +82,7 @@ class Comments extends React.Component{
             <React.Fragment>
                 {
                     replies.map((reply,index)=>
-                    <div className={classes.subreply}>
+                    <div className={indexArr.length>1?null:classes.subreply}>
                         <Toolbar>
                             <Avatar className={classes.avatar} alt="User" children={reply.userId}/>
                             <Typography variant="h6">{reply.username + " 回复 "+parentName+"  " + this.getTime(reply.commentTime)}</Typography>

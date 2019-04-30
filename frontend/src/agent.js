@@ -1,7 +1,7 @@
 var superagent = require('superagent');
 
-const RootUrl = 'http://localhost:8080';
-// const RootUrl = 'http://47.103.0.246:8080';
+// const RootUrl = 'http://localhost:8080';
+const RootUrl = 'http://47.103.0.246:8080';
 
 function resBody(res) {
     return res.body;
@@ -56,7 +56,7 @@ export const Order = {
 
 //
 export const User = {
-    login: (username, password) => request.post('/api/user/login',{"username":username, "password": password}),
+    login: (username, password) => request.post('/login',{"username":username, "password": password}),
     signup: (username, password, email) => request.post('/api/user/signup',{"username":username, "password": password,
         "email": email})
 };
