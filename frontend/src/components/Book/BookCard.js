@@ -41,12 +41,13 @@ class BookCard extends React.Component{
         return (
             <Card className={classes.card}>
                 <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image={book.pictureUrl}
-                        title="Contemplative Reptile"
-                    />
-
+                    <Link to={'book/' + book.isbn}>
+                        <CardMedia
+                            className={classes.media}
+                            image={book.pictureUrl}
+                            title="Contemplative Reptile"
+                        />
+                    </Link>
                     <CardContent>
                         <Typography gutterBottom variant="h6" component="h4">
                             {book.bookname}
@@ -70,7 +71,7 @@ class BookCard extends React.Component{
                     }
                     {
                         isManager?
-                            <IconButton className={classes.deleteButton}
+                            <IconButton className={classes.deleteButton} disabled
                             onClick={()=>deleteBook(_id, book.bookname, book.isbn)}>
                                 <Delete/>
                             </IconButton>

@@ -13,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {withRouter} from "react-router-dom";
 
 const styles = theme => ({
     superRoot:{
@@ -37,6 +38,9 @@ const styles = theme => ({
     },
     subreply:{
         marginLeft: theme.spacing.unit*10,
+    },
+    fabiao:{
+        marginTop: theme.spacing.unit * 5
     }
 });
 
@@ -61,6 +65,7 @@ class Comments extends React.Component{
     handleSubmit = () => {
         Comment.addComment(this.props.isbn,this.props._id,this.state.indexArr,this.props.username,this.state.input_content);
         this.handleClose();
+        this.props.history.push('/');
     };
 
     handleContentChange = e => {
@@ -122,7 +127,7 @@ class Comments extends React.Component{
                     )}
                 </div>
                 {this.props._id===""?null:
-                    <Button variant="outlined" color="primary" onClick={this.handleClickOpen([])}>
+                    <Button fullWidth className={classes.fabiao} variant="outlined" color="primary" onClick={this.handleClickOpen([])}>
                         发表评论
                     </Button>}
                 <Dialog
@@ -170,4 +175,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Comments));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Comments)));

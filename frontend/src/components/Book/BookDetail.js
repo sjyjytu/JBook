@@ -121,14 +121,12 @@ class BookDetail extends React.Component{
     };
     render() {
         const {classes, books, _id} = this.props;
-        //let targetisbn = parseInt(this.props.match.params.isbn);
-        //const [book] = books.filter(book=>book.isbn===targetisbn);
+        let targetisbn = parseInt(this.props.match.params.isbn);
         const book = this.state.book;
         let numValue;
         return (
             <div className={classes.superRoot}>
                 <Header/>
-                <SearchBar/>
                 <div className={classes.root}>
                     <div className={classes.left}>
                         <img src={book.pictureUrl} alt="别买了，这书连封面都没有"
