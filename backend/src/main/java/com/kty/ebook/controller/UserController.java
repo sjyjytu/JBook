@@ -45,28 +45,33 @@ public class UserController {
     }
 
     @ApiOperation(value = "用户登录", notes = "用户登录")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login")
     @ResponseBody
-    public ResponseEntity<JSONObject> signin(@RequestBody String request){
-        JSONObject param = JSONObject.parseObject(request);
-        String name = param.getString("username");
-        String password = param.getString("password");
+    public ResponseEntity<JSONObject> signin() {
         JSONObject ret = new JSONObject();
-        User user = userService.findUserByName(name);
-        if (user == null) {
-            ret.put("msg","user not exists");
-        } else if (!user.getPassword().equals(password)) {
-            ret.put("msg","password wrong!");
-        } else if (user.getIsBanned()) {
-            ret.put("msg", "this account has been banned!");
-        } else {
-            ret.put("_id", user.getId());
-            ret.put("isManager", user.getIsManager());
-            ret.put("username", user.getUsername());
-            return new ResponseEntity<>(ret, HttpStatus.OK);
-        }
+        ret.put("msg","请先登录");
         return new ResponseEntity<>(ret, HttpStatus.SERVICE_UNAVAILABLE);
     }
+//    public ResponseEntity<JSONObject> signin(@RequestBody String request){
+//        JSONObject param = JSONObject.parseObject(request);
+//        String name = param.getString("username");
+//        String password = param.getString("password");
+//        JSONObject ret = new JSONObject();
+//        User user = userService.findUserByName(name);
+//        if (user == null) {
+//            ret.put("msg","user not exists");
+//        } else if (!user.getPassword().equals(password)) {
+//            ret.put("msg","password wrong!");
+//        } else if (user.getIsBanned()) {
+//            ret.put("msg", "this account has been banned!");
+//        } else {
+//            ret.put("_id", user.getId());
+//            ret.put("isManager", user.getIsManager());
+//            ret.put("username", user.getUsername());
+//            return new ResponseEntity<>(ret, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(ret, HttpStatus.SERVICE_UNAVAILABLE);
+//    }
 
     @ApiOperation(value = "显示用户", notes = "显示所有用户")
     @RequestMapping(value = "/show", method = RequestMethod.GET)
