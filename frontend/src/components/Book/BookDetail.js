@@ -13,6 +13,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {connect} from "react-redux";
 import {Book,Order} from '../../agent';
 import Comments from "./Comments";
+import {errorHandler} from '../../utils/usefulFunction'
 
 const styles = theme => ({
     superRoot: {
@@ -114,7 +115,7 @@ class BookDetail extends React.Component{
     }
     componentDidMount() {
         let targetisbn = parseInt(this.props.match.params.isbn);
-        Book.getBookByisbn(targetisbn,1,1).then(res=>this.setState({book:res.books[0]})).catch(err=>alert(err.response.body.msg));
+        Book.getBookByisbn(targetisbn,1,1).then(res=>this.setState({book:res.books[0]})).catch(errorHandler);
     }
     handleChange = (event, value) => {
         this.setState({ value });
@@ -211,7 +212,7 @@ function mapDispatchToProps(dispatch) {
             bookname: bookname,
             num: num,
             isbn: isbn
-        })).then(alert("加入购物车成功！")).catch(error=>alert(error.response.body.msg)),
+        })).then(alert("加入购物车成功！")).catch(errorHandler),
         buyNow: (_id, booksArr, mode) => Order.generateAnOrder(_id,booksArr,mode)
             .then(alert("购买成功！")).catch(error=>alert(error.response.body.msg)),
     }

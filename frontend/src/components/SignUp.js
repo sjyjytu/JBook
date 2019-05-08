@@ -12,6 +12,7 @@ import {MuiThemeProvider} from '@material-ui/core';
 import theme from '../theme';
 import {User} from "../agent";
 import {connect} from "react-redux";
+import {errorHandler} from '../utils/usefulFunction'
 
 const styles = theme => ({
     main: {
@@ -140,7 +141,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         checkAccount: (username, password, email) => {
-            User.signup(username, password, email).then(res=>dispatch({type: "SIGN_UP"})).catch(error=>alert(error.response.body.msg));
+            User.signup(username, password, email).then(res=>dispatch({type: "SIGN_UP"})).catch(errorHandler);
         },
         onRedirect: () => dispatch({type: 'REDIRECTED'})
     }

@@ -11,6 +11,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Header from '../Header';
 import {Book, Order} from "../../agent";
 import {connect} from "react-redux";
+import {errorHandler} from '../../utils/usefulFunction'
 
 
 const styles = theme => ({
@@ -66,15 +67,13 @@ class ShoppingCart extends React.Component{
     }
 
     componentDidMount() {
-        Book.showCart(this.props._id).then(res=> this.setState({cart:res.books})).catch(err=>alert(err.response.body.msg));
+        Book.showCart(this.props._id).then(res=> this.setState({cart:res.books})).catch(errorHandler);
     }
 
     removeButtonClick = (_id, bookname, isbn) =>
         Book.removeFromCart(_id, bookname, isbn).then(() => {
                 const oldCart = this.state.cart;
-                console.log(oldCart);
                 const newCart = oldCart.filter(book=>isbn!==book.isbn);
-                console.log(newCart);
                 this.setState({cart: newCart});
             }
         ).catch(err=>alert("移除书失败！"));
@@ -106,7 +105,7 @@ class ShoppingCart extends React.Component{
                 </div>
                 <Button variant="contained" color="secondary" className={classes.deleteButton}
                         onClick={() => Order.generateAnOrder(this.props._id, this.state.cart, "buy by cart").then(this.setState({cart:[]}))
-                            .catch(err=>alert(err.res.body.msg))}>
+                            .catch(errorHandler)}>
                     结算
                     <DeleteIcon className={classes.rightIcon}/>
                 </Button>

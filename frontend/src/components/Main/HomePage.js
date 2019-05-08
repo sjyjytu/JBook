@@ -16,11 +16,7 @@ const styles = theme => ({
 
 
 class HomePage extends React.Component{
-    constructor(props) {
-        super(props);
-    }
     render() {
-        const {classes} = this.props;
         return (
             <React.Fragment>
                 <Header/>

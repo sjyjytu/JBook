@@ -10,6 +10,7 @@ import {User} from "../agent";
 import { withStyles } from '@material-ui/core/styles';
 import {connect} from "react-redux";
 import bgImg from '../img/signin4.jpg';
+import {errorHandler} from '../utils/usefulFunction'
 
 const styles = theme => ({
     submit:{
@@ -103,7 +104,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         checkAccount: (username, password) => {
-            User.login(username, password).then(res=>dispatch({type: "LOGIN",result:res})).catch(error=>alert(error.response.body.msg));
+            User.login(username, password).then(res=>dispatch({type: "LOGIN",result:res})).catch(errorHandler);
         },
         onRedirect: () => dispatch({type: 'REDIRECTED'})
 

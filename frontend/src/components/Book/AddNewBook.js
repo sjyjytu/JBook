@@ -12,8 +12,8 @@ import theme from '../../theme';
 import {connect} from "react-redux";
 import request from 'superagent';
 import {Manage} from "../../agent";
-import InputAdornment from '@material-ui/core/InputAdornment';
 import NumberFormat from 'react-number-format';
+import {errorHandler} from '../../utils/usefulFunction'
 
 
 const styles = theme => ({
@@ -159,13 +159,13 @@ class AddNewBook extends React.Component{
 
         upload.end((err, response) => {
             if (err) {
-                console.log(err);
+                alert(err);
             }
             if (response.body.secure_url !== '') {
                 this.setState({
                     uploadImgUrl: response.body.secure_url
                 });
-                console.log(response.body.secure_url);
+                //console.log(response.body.secure_url);
                 //this.forceUpdate();
             }
         });
@@ -289,7 +289,7 @@ function mapDispatchToProps(dispatch) {
         addNewBook: (book) => {
             Manage.addABook(book)
                 .then(res=>dispatch({type:'ADD_BOOK',book:book}))
-                .catch(error=>alert(error.response.body.msg));
+                .catch(errorHandler);
         },
         onRedirect: () => dispatch({type: 'REDIRECTED'})
     }

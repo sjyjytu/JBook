@@ -5,11 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kty.ebook.entity.SecurityUser;
 import com.kty.ebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +20,10 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,12 +46,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .formLogin().loginPage("/api/user/login").permitAll()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/api/user/login","/api/book/show","/api/book/showBy","/api/user/signup","/api/comment/show").permitAll()
-                .antMatchers("/api/user/ban","/api/user/show","/api/book/manage/update","/api/book/manage/add","/api/book/manage/delete").hasAnyRole("ADMIN")
+                .antMatchers("/api/user/ban","/api/user/show","/api/book/manage/update","/api/book/manage/add","/api/book/manage/delete").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/api/user/login").permitAll()
+                .rememberMe()
                 .and()
                 .logout().logoutUrl("/api/user/logout").permitAll().logoutSuccessHandler(new LogoutSuccessHandler() {
             @Override
@@ -55,10 +65,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 out.flush();
                 out.close();
             }
-        })
-                .and().csrf().disable();
+        }).and().cors().and().csrf().disable();
         http.addFilterAt(CAFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 
     @Bean
     CustomAuthenticationFilter CAFilter() throws Exception {
@@ -66,9 +76,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
+                System.out.println("get here2");
                 resp.setContentType("application/json;charset=utf-8");
                 PrintWriter out = resp.getWriter();
                 SecurityUser user = (SecurityUser)authentication.getPrincipal();
+//                System.out.println("pricipal:"+authentication.getPrincipal());
+//                System.out.println("authorities:"+authentication.getAuthorities());
+//                System.out.println("credential:"+authentication.getCredentials());
+//                System.out.println("isAuthenticated:"+authentication.isAuthenticated());
+//                System.out.println("detail:"+authentication.getDetails());
                 boolean isManager = userService.findUserByName(user.getUsername()).getIsManager();
                 JSONObject ret = new JSONObject();
                 ret.put("_id", user.getId());

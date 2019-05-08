@@ -10,6 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Header from '../Header';
 import {Manage} from "../../agent";
 import {connect} from "react-redux";
+import {errorHandler} from '../../utils/usefulFunction'
 
 
 const styles = theme => ({
@@ -65,7 +66,7 @@ class ManageUser extends React.Component{
     }
 
     componentDidMount() {
-        Manage.showUsers().then(res=> this.setState({users:res.users})).catch(err=>alert(err.res.body.msg));
+        Manage.showUsers().then(res=> this.setState({users:res.users})).catch(errorHandler);
     }
 
     banButtonClick = (_id) =>
@@ -80,7 +81,7 @@ class ManageUser extends React.Component{
 
                 this.setState({users: newUsers});
             }
-        ).catch(err=>alert(err.res.body.msg));
+        ).catch(errorHandler);
 
     render() {
         const {classes/*, removeButtonClick*/} = this.props;

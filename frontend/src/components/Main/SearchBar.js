@@ -10,6 +10,7 @@ import {Book} from "../../agent";
 import {Radio} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { withRouter } from 'react-router-dom';
+import {errorHandler} from '../../utils/usefulFunction'
 
 const styles = theme => ({
     inputInput: {
@@ -108,12 +109,12 @@ class SearchBar extends React.Component{
                     } else {
                         Book.getBookByisbn(key,this.props.curPage,this.props.perPageNum)
                             .then(res => this.props.searchBooks(res))
-                            .catch(error=>alert(error.response.body.msg));
+                            .catch(errorHandler);
                     }
                 } else {
                     Book.getBookByName(key,this.props.curPage,this.props.perPageNum)
                         .then(res => this.props.searchBooks(res))
-                        .catch(err => {alert(err.response.body.msg);window.open('https://www.baidu.com/s?wd=' + key, '_blank')});
+                        .catch(err => {alert(err.response.data.msg);window.open('https://www.baidu.com/s?wd=' + key, '_blank')});
                 }
             }
         }

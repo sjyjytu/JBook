@@ -10,7 +10,6 @@ import Menu from '@material-ui/core/Menu';
 import Comment from '@material-ui/icons/Comment';
 import MenuItem from '@material-ui/core/MenuItem';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import Login from './Login';
 import {connect} from "react-redux";
 
 

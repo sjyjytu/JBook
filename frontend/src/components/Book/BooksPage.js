@@ -9,6 +9,7 @@ import Catalog from '../Main/Catalog';
 import Pagination from './Pagination';
 import {connect} from "react-redux";
 import {Book, Manage} from "../../agent";
+import {errorHandler} from '../../utils/usefulFunction'
 
 const styles = theme => ({
     superRoot:{
@@ -40,34 +41,32 @@ class BooksPage extends React.Component{
 
     componentDidMount() {
         Book.showBooks(this.props.curPage,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);
-        return this.props.storePageBooks(res)}).catch(error=>alert(error.response.body.msg));
+        return this.props.storePageBooks(res)}).catch(errorHandler);
     }
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.curPage!==nextProps.curPage || this.props.update!==nextProps.update)
         {
             this.bookPageOnChange(nextProps.curPage);
-            console.log(this.props.update!==nextProps.update);
-            console.log(this.props.keyWord);
         }
     }
 
     bookPageOnChange(page){
         if (this.props.keyWord==="" || this.props.keyWord===undefined)
         {
-            Book.showBooks(page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(error=>alert(error.response.body.msg));
+            Book.showBooks(page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(errorHandler);
         }
         else
         {
             if (this.props.by === 'isbn') {
-                Book.getBookByisbn(this.props.keyWord,page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(error=>alert(error.response.body.msg));
+                Book.getBookByisbn(this.props.keyWord,page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(errorHandler);
             } else {
-                Book.getBookByName(this.props.keyWord,page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(error=>alert(error.response.body.msg));
+                Book.getBookByName(this.props.keyWord,page,this.props.perPageNum).then(res=>{this.props.setTotal(res.count);return this.props.storePageBooks(res)}).catch(errorHandler);
             }
         }
     }
 
     deleteBook(_id, bookname, isbn) {
-        Manage.deleteABook(_id, bookname, isbn).then(this, this.props.deleteBook(isbn)).catch(error=>alert(error.response.body.msg));
+        Manage.deleteABook(_id, bookname, isbn).then(this, this.props.deleteBook(isbn)).catch(errorHandler);
         this.forceUpdate();
     }
         render() {

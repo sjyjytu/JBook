@@ -8,7 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom';
-import {Login} from '../../agent';
 import {connect} from "react-redux";
 import {IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
@@ -32,10 +31,6 @@ const styles = {
 };
 
 class BookCard extends React.Component{
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { classes,book, isManager, _id, deleteBook} = this.props;
         return (

@@ -11,9 +11,9 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {withRouter} from "react-router-dom";
+import {errorHandler} from "../../utils/usefulFunction";
 
 const styles = theme => ({
     superRoot:{
@@ -51,7 +51,7 @@ class Comments extends React.Component{
     }
 
     componentDidMount() {
-        Comment.showComment(this.props.isbn).then(res=> this.setState({comments:res.comments})).catch(error=>console.log(error.response.body.msg));
+        Comment.showComment(this.props.isbn).then(res=> this.setState({comments:res.comments})).catch(errorHandler);
     }
 
     handleClickOpen = index => () => {

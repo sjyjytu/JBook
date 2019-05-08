@@ -9,6 +9,7 @@ import Header from '../Header';
 import {connect} from "react-redux";
 import {Order} from "../../agent";
 import SearchBar from '../Main/SearchBar';
+import {errorHandler} from "../../utils/usefulFunction";
 
 
 const styles = theme => ({
@@ -66,7 +67,7 @@ class ShowOrder extends React.Component{
     }
 
     componentDidMount() {
-        Order.showOrder(this.props._id).then(res=> this.setState({orders:res.orders})).catch(error=>alert(error.response.body.msg));
+        Order.showOrder(this.props._id).then(res=> this.setState({orders:res.orders})).catch(errorHandler);
     }
 
     orderFilter(order, keyWord) {

@@ -13,6 +13,7 @@ import {connect} from "react-redux";
 import request from 'superagent';
 import {Manage} from "../../agent";
 import NumberFormat from 'react-number-format';
+import {errorHandler} from '../../utils/usefulFunction'
 
 
 const styles = theme => ({
@@ -172,7 +173,7 @@ class UpdateBook extends React.Component{
                 this.setState({
                     uploadImgUrl: response.body.secure_url
                 });
-                console.log(response.body.secure_url);
+                //console.log(response.body.secure_url);
                 //this.forceUpdate();
             }
         });
@@ -297,7 +298,7 @@ function mapDispatchToProps(dispatch) {
         updateBook: (book) => {
             Manage.updateABook(book)
                 .then(()=>dispatch({type:'UPDATE_BOOK',book:book}))
-                .catch((err)=>alert(err.res.body.msg));
+                .catch(errorHandler);
         },
         onRedirect: () => dispatch({type: 'REDIRECTED'})
     }
