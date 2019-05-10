@@ -29,7 +29,7 @@ public class BookService {
         Page<Book> page = null;
         try {
             Sort sort = new Sort(Sort.Direction.ASC, "isbn");
-            Pageable pageable = new PageRequest(start-1, num, sort);
+            Pageable pageable = PageRequest.of(start-1, num, sort);
             page = bookRepository.findBooksByIsbnIsAndIsDeletedFalse(isbn, pageable);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -41,7 +41,7 @@ public class BookService {
         Page<Book> page = null;
         try {
             Sort sort = new Sort(Sort.Direction.ASC, "isbn");
-            Pageable pageable = new PageRequest(start-1, num, sort);
+            Pageable pageable = PageRequest.of(start-1, num, sort);
             page = bookRepository.findBooksByBooknameLikeAndIsDeletedFalse("%"+name+"%", pageable);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -53,7 +53,7 @@ public class BookService {
         Page<Book> page = null;
         try {
             Sort sort = new Sort(Sort.Direction.DESC, "isbn");
-            Pageable pageable = new PageRequest(start-1, num, sort);
+            Pageable pageable = PageRequest.of(start-1, num, sort);
             page = bookRepository.findAllByIsDeletedFalse(pageable);
         } catch (Exception e) {
             System.out.println(e.getMessage());
