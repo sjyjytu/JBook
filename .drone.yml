@@ -1,0 +1,15 @@
+kind: pipline
+name: demo
+
+steps:
+        - name: node1
+          image: node:11.12.0
+          commands:
+                  - echo "test 1"
+
+        - name: node2
+          image: node:11.12.0
+          commands:
+                  - sleep 10
+                  - echo "sleep 10"
+
