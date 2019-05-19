@@ -8,18 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 public class MvcConfig extends WebMvcConfigurationSupport  {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/login")
-                .allowedOrigins("http://www.ketianya.xyz:8080")
-                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true).maxAge(3600);
-        registry.addMapping("/logout")
-                .allowedOrigins("http://www.ketianya.xyz:8080")
-                .allowedMethods("GET")
-                .allowedHeaders("*")
-                .allowCredentials(true).maxAge(3600);
         registry.addMapping("/**")
-                .allowedOrigins("http://www.ketianya.xyz:8080")
+                .allowedOrigins("http://www.ketianya.xyz")
                 .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true).maxAge(3600);

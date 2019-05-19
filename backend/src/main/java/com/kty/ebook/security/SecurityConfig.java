@@ -46,6 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry
+//                = http.authorizeRequests();
+//        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
         http
                 .formLogin().loginPage("/api/user/login").permitAll()
                 .and()

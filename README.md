@@ -48,7 +48,7 @@
 - [x] add,delete, update,search book
 - [x] look the history buying statistics
 - [x] comment on books
-- [ ] add tag to book and classification
+- [x] add tag to book and classification
 
 
 
