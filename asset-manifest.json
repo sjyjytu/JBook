@@ -1,12 +1,12 @@
 {
-  "main.js": "/JBook/static/js/main.8a835c38.chunk.js",
-  "main.js.map": "/JBook/static/js/main.8a835c38.chunk.js.map",
+  "main.js": "/JBook/static/js/main.f9d7fe36.chunk.js",
+  "main.js.map": "/JBook/static/js/main.f9d7fe36.chunk.js.map",
   "runtime~main.js": "/JBook/static/js/runtime~main.2d8bf87d.js",
   "runtime~main.js.map": "/JBook/static/js/runtime~main.2d8bf87d.js.map",
   "static/js/2.382dc929.chunk.js": "/JBook/static/js/2.382dc929.chunk.js",
   "static/js/2.382dc929.chunk.js.map": "/JBook/static/js/2.382dc929.chunk.js.map",
   "index.html": "/JBook/index.html",
-  "precache-manifest.3d8074985c869733ad9480c238e6fc21.js": "/JBook/precache-manifest.3d8074985c869733ad9480c238e6fc21.js",
+  "precache-manifest.eb2356f608533dc05f2baaddd9ccb4d1.js": "/JBook/precache-manifest.eb2356f608533dc05f2baaddd9ccb4d1.js",
   "service-worker.js": "/JBook/service-worker.js",
   "static/media/signin4.jpg": "/JBook/static/media/signin4.d1971858.jpg"
 }
