@@ -1,4 +1,4 @@
-# JBook
+JBook
 
 ---
 
@@ -136,3 +136,42 @@ hints: I had fix this bug by using hibernate, so you can no longer enjoy it.
       * 害我找了半天，而且WebStorm把defaults打了个波兰线，助桀为恶，实在可恶！
 
   * 请原谅我这里突然用了中文~因为我用中文都怕说不清，更别说英文了~
+
+* CROS 跨域问题（困扰了我几个月的跨域问题总算解决了）
+
+  * 问题
+
+    ![CORS](Share/annoying_bug/CORS.png)
+
+    * 常见的CROS问题就不说了,就是要加上下面几句，可以参考[这里](<https://www.open-open.com/lib/view/open1463878352785.html>).
+
+    ~~~java
+    Access-Control-Allow-Origin: *  
+    Access-Control-Max-Age: 3628800
+    Access-Control-Allow-Methods: GET，PUT, DELETE
+    Access-Control-Allow-Headers: content-type
+    ~~~
+
+    * Spring boot里面的写法是写一个MvcConfig类，加上下面几句
+
+    ~~~java
+    registry.addMapping("/**")
+                    .allowedOrigins("http://localhost:3000")
+                    .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
+                    .allowedHeaders("*")
+                    .allowCredentials(true).maxAge(3600);
+    ~~~
+
+    * 我想讲的是，加上Spring Security之后碰到的烦人的跨域问题，开始我的写法是:
+
+    ![WebMvcAdapter](Share/annoying_bug/WebMvcAdapter.png)
+
+    * 这是行得通的，但是我们可以看到WebMcvConfigurerAdapter被划了一杆，表明他过时了，虽然在本地也可以用，但就是mvn打包的时候打包不了，说这个用法过期了。于是我去查它的替代品，官方推荐WebMcvConfigurerSupport，于是我用了
+
+    ![WebMvcSupport](Share/annoying_bug/WebMvcSupport.png)
+
+    * 然后我就打包，放到服务器上，发布了，但是一直出现跨域问题，我百思不得其解，以为是本地可以，远端不行，于是愣生生地卡了一个多月
+    * 终于一个多月后，第二次答辩在即，我再次打开这个程序，想验证一下它在本地是没问题的，以便我不至于因为登录不了而零分，但是，发现并不行~想啊想，把这个WebMcvConfigurerSupport换回WebMcvConfigurerAdapter又可以了，于是我终于tm的发现原来是这个WebMcvConfigurerSupport的问题，于是去找WebMcvConfigurerAdapter的其他替代品，终于发现WebMvcConfigurer好像也不错，于是换成WebMvcConfigurer，遂解决！
+
+    ![WebMvcConfigurer](Share/annoying_bug/WebMvcConfigurer.png)
+

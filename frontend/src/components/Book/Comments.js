@@ -74,6 +74,7 @@ class Comments extends React.Component{
 
     getTime(commentTime) {
         return commentTime.replace('T',' ').substring(0,commentTime.indexOf('.'))
+        // return commentTime
     }
 
     showTree(replies, parentName, indexArr) {

@@ -50,12 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                = http.authorizeRequests();
 //        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
         http
-                .formLogin().loginPage("/api/user/login").permitAll()
-                .and()
                 .authorizeRequests()
-                .antMatchers("/api/user/login","/api/book/show","/api/book/showBy","/api/user/signup","/api/comment/show").permitAll()
+                .antMatchers("/api/book/show","/api/book/showBy","/api/user/signup","/api/comment/show").permitAll()
                 .antMatchers("/api/user/ban","/api/user/show","/api/book/manage/update","/api/book/manage/add","/api/book/manage/delete").hasRole("ADMIN")
                 .anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/api/user/login").permitAll()
                 .and()
                 .rememberMe()
                 .and()
