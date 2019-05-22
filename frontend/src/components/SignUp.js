@@ -68,6 +68,7 @@ class SignUp extends React.Component{
                             event.preventDefault();
                             if (this.state.password === this.state.confirmPass) {
                                 this.props.checkAccount(this.state.username, this.state.password, this.state.email);
+                                alert("注册成功！请前往邮箱认证！");
                             } else {
                                 alert('前后密码不一致');
                             }
@@ -121,7 +122,7 @@ class SignUp extends React.Component{
                                 variant="contained"
                                 color="primary"
                             >
-                                Sign up
+                                发送验证码认证
                             </Button>
                         </form>
                     </Paper>

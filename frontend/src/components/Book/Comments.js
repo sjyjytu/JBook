@@ -13,7 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {withRouter} from "react-router-dom";
-import {errorHandler} from "../../utils/usefulFunction";
+import {errorHandler, getTime} from "../../utils/usefulFunction";
 
 const styles = theme => ({
     superRoot:{
@@ -72,10 +72,7 @@ class Comments extends React.Component{
         this.setState({input_content:e.target.value})
     };
 
-    getTime(commentTime) {
-        return commentTime.replace('T',' ').substring(0,commentTime.indexOf('.'))
-        // return commentTime
-    }
+    getTime = getTime;
 
     showTree(replies, parentName, indexArr) {
         const {classes} = this.props;

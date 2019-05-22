@@ -55,12 +55,8 @@ public class UserService {
         return false;
     }
 
-    public boolean existsByUsername(String username){
-        return userRepository.existsByUsername(username);
-    }
-
-    public String addUser(String name, String email, String password) {
-        if (existsByUsername(name)) {
+    public String addUser(String name, String email, String password, String code) {
+        if (userRepository.existsByUsernameAndStateIsNot(name, 0)) {
             return "username exists.";
         } else {
             try {
@@ -68,6 +64,7 @@ public class UserService {
                 user.setEmail(email);
                 user.setUsername(name);
                 user.setPassword(password);
+                user.setCode(code);
                 userRepository.save(user);
                 return "ok";
             } catch (Exception e) {
@@ -85,6 +82,21 @@ public class UserService {
             user.setIsBanned(!user.getIsBanned());
             userRepository.save(user);
             return "ok";
+        }
+    }
+
+    public String activate(String code) {
+        User user = userRepository.findUserByCodeEquals(code);
+        if (user == null) {
+            return "认证已过期，请重新发送邮件认证";
+        } else {
+            if (user.getState() != 0) {
+                return "用户已认证，请不要重复认证";
+            } else {
+                user.setState(1);
+                userRepository.save(user);
+                return "ok";
+            }
         }
     }
 }

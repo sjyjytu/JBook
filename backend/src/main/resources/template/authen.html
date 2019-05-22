@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>邮箱认证结果</title>
+</head>
+<body>
+<h1>客天涯购书网邮箱认证结果</h1>
+<p th:text="${result}"></p>
+<a th:if="${ok}" th:href="${href}">请点击这里前往登录！</a>
+</body>
+</html>

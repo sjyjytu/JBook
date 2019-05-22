@@ -39,7 +39,7 @@ public class MyUserDetailService implements UserDetailsService {
             securityUser.setPassword("wrong password");
         } else {
             String password = passwordEncoder.encode(user.getPassword());
-            securityUser.setEnabled(!user.getIsBanned());
+            securityUser.setEnabled(!user.getIsBanned() && user.getState()!=0);
             securityUser.setId(user.getId());
             securityUser.setUsername(username);
             securityUser.setPassword(password);

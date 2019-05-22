@@ -11,6 +11,8 @@ public class User {
     private String email;
     private boolean isManager;
     private boolean isBanned;
+    private String code;
+    private int state;
 
     public User(){
     }
@@ -90,5 +92,21 @@ public class User {
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
 
         return true;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

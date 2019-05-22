@@ -9,7 +9,7 @@ import Header from '../Header';
 import {connect} from "react-redux";
 import {Order} from "../../agent";
 import SearchBar from '../Main/SearchBar';
-import {errorHandler} from "../../utils/usefulFunction";
+import {errorHandler, getTime} from "../../utils/usefulFunction";
 
 
 const styles = theme => ({
@@ -79,6 +79,8 @@ class ShowOrder extends React.Component{
         return false;
     }
 
+    getTime = getTime;
+
     render() {
         const {classes} = this.props;
         const {orders} = this.state;
@@ -93,7 +95,7 @@ class ShowOrder extends React.Component{
                                 <Avatar className={classes.avatar} alt="Order" children="订单"/>
                                 <Typography variant="h6">{order.orderId}</Typography>
                             </Toolbar>
-                            <Typography className={classes.title}>{order.createTime}</Typography>
+                            <Typography className={classes.title}>{this.getTime(order.createTime)}</Typography>
                             <div className={classes.summary}>
                                 {
                                     JSON.parse(order.books).map(book=> {

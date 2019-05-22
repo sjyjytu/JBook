@@ -11,5 +11,6 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByUsernameIs(String username);
-    boolean existsByUsername(String username);
+    boolean existsByUsernameAndStateIsNot(String username, int notState);
+    User findUserByCodeEquals(String code);
 }

@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
         http
                 .authorizeRequests()
-                .antMatchers("/api/book/show","/api/book/showBy","/api/user/signup","/api/comment/show").permitAll()
+                .antMatchers("/api/book/show","/api/book/showBy","/api/user/signup","/api/user/activate", "/api/comment/show").permitAll()
                 .antMatchers("/api/user/ban","/api/user/show","/api/book/manage/update","/api/book/manage/add","/api/book/manage/delete").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 PrintWriter out = resp.getWriter();
                 JSONObject ret = new JSONObject();
                 if (e.getMessage().equals("User is disabled"))
-                    ret.put("msg","此用户已被禁");
+                    ret.put("msg","此用户已被禁或者未通过邮箱激活");
                 else
                     ret.put("msg", "用户名不存在或密码错误");
                 resp.setStatus(503);

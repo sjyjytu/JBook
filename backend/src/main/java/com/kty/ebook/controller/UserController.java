@@ -3,6 +3,7 @@ package com.kty.ebook.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.kty.ebook.entity.User;
 import com.kty.ebook.service.UserService;
+import com.kty.ebook.utils.Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import com.kty.ebook.utils.Utils.*;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -35,7 +45,9 @@ public class UserController {
         String name = param.getString("username");
         String email = param.getString("email");
         String password = param.getString("password");
-        String result = userService.addUser(name, email, password);
+        String code = Utils.randomNumber(20);
+        Utils.sendMail(email, code);
+        String result = userService.addUser(name, email, password, code);
         JSONObject ret = new JSONObject();
         ret.put("msg",result);
         if (result.equals("ok")) {
@@ -44,6 +56,20 @@ public class UserController {
         return new ResponseEntity<>(ret, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
+    @ApiOperation(value = "注册认证", notes = "注册认证")
+    @RequestMapping(value = "/activate", method = RequestMethod.GET)
+    public String  writeSubmitHtml(String code, HashMap<String, Object> map) throws IOException {
+        String result = userService.activate(code);
+        if (result.equals("ok")) {
+            map.put("result", "认证成功！");
+            map.put("ok", true);
+            map.put("href","http://localhost:3000/#/login");
+        } else {
+            map.put("ok", false);
+            map.put("result", result);
+        }
+        return "/authen";
+    }
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @RequestMapping(value = "/login")
     @ResponseBody
