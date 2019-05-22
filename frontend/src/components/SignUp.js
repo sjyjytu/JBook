@@ -39,7 +39,7 @@ const styles = theme => ({
 class SignUp extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {username:'',password:'',confirmPass:'',email:''};
+        this.state = {username:'',password:'',confirmPass:'',email:'',time: 30, btnDisable: false, btnContent:'发送邮件认证'};
         this.handleInputChange = field=> e => {
             const state = this.state;
             const newState = Object.assign({}, state, {[field]: e.target.value});
@@ -55,6 +55,27 @@ class SignUp extends React.Component{
     }
 
     render() {
+        let timeChange;
+        let ti = this.state.time;
+        const clock = ()=>{
+            if (ti > 0) {
+                ti = ti - 1;
+                this.setState({
+                    time: ti,
+                    btnContent: ti + "s之内不能再次发送邮件",
+                });
+            } else {
+                clearInterval(timeChange);
+                this.setState({btnDisable:false,time:30,btnContent:"发送邮件认证",})
+            }
+        };
+        const sendCode = () => {
+            this.setState({
+                btnDisable:true,
+                btnContent:"30s之内不能再次发送邮件",
+            });
+            timeChange = setInterval(clock, 1000);
+        };
         return (
             <MuiThemeProvider theme={theme}>
                 <Header/>
@@ -67,7 +88,7 @@ class SignUp extends React.Component{
                         <form onSubmit={event => {
                             event.preventDefault();
                             if (this.state.password === this.state.confirmPass) {
-                                this.props.checkAccount(this.state.username, this.state.password, this.state.email);
+                                this.props.checkAccount(this.state.username, this.state.password, this.state.email).then(()=>{sendCode();alert("注册成功！请前往邮箱认证！")}).catch(errorHandler);
                             } else {
                                 alert('前后密码不一致');
                             }
@@ -120,8 +141,9 @@ class SignUp extends React.Component{
                                 fullWidth
                                 variant="contained"
                                 color="primary"
+                                disabled={this.state.btnDisable}
                             >
-                                发送验证码认证
+                                {this.state.btnContent}
                             </Button>
                         </form>
                     </Paper>
@@ -141,7 +163,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         checkAccount: (username, password, email) => {
-            User.signup(username, password, email).then(res=>dispatch({type: "SIGN_UP"})).then(()=>alert("注册成功！请前往邮箱认证！")).catch(errorHandler);
+            return User.signup(username, password, email).then(res=>dispatch({type: "SIGN_UP"}));
         },
         onRedirect: () => dispatch({type: 'REDIRECTED'})
     }

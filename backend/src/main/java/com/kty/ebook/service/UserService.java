@@ -57,16 +57,20 @@ public class UserService {
 
     public String addUser(String name, String email, String password, String code) {
         if (userRepository.existsByUsernameAndStateIsNot(name, 0)) {
-            return "username exists.";
+            return "用户名已存在";
         } else {
             try {
-                User user = new User();
-                user.setEmail(email);
-                user.setUsername(name);
-                user.setPassword(password);
-                user.setCode(code);
-                userRepository.save(user);
-                return "ok";
+                if (Utils.sendMail(email, code)) {
+                    User user = new User();
+                    user.setEmail(email);
+                    user.setUsername(name);
+                    user.setPassword(password);
+                    user.setCode(code);
+                    userRepository.save(user);
+                    return "ok";
+                } else {
+                    return "邮件发送失败，请稍后再重试";
+                }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

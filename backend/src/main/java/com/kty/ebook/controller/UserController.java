@@ -46,12 +46,7 @@ public class UserController {
         String email = param.getString("email");
         String password = param.getString("password");
         String code = Utils.randomNumber(20);
-        String result = "";
-        if (Utils.sendMail(email, code)) {
-            result = userService.addUser(name, email, password, code);
-        } else {
-            result = "邮件发送失败，请稍后再重试";
-        }
+        String result = userService.addUser(name, email, password, code);
         JSONObject ret = new JSONObject();
         ret.put("msg",result);
         if (result.equals("ok")) {
