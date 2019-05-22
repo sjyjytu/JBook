@@ -46,8 +46,12 @@ public class UserController {
         String email = param.getString("email");
         String password = param.getString("password");
         String code = Utils.randomNumber(20);
-        Utils.sendMail(email, code);
-        String result = userService.addUser(name, email, password, code);
+        String result = "";
+        if (Utils.sendMail(email, code)) {
+            result = userService.addUser(name, email, password, code);
+        } else {
+            result = "邮件发送失败，请稍后再重试";
+        }
         JSONObject ret = new JSONObject();
         ret.put("msg",result);
         if (result.equals("ok")) {
@@ -63,12 +67,12 @@ public class UserController {
         if (result.equals("ok")) {
             map.put("result", "认证成功！");
             map.put("ok", true);
-            map.put("href","http://localhost:3000/#/login");
+            map.put("href","http://www.ketianya.xyz/JBook/#/login");
         } else {
             map.put("ok", false);
             map.put("result", result);
         }
-        return "/authen";
+        return "authen";
     }
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @RequestMapping(value = "/login")

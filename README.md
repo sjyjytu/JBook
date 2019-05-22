@@ -43,6 +43,7 @@ JBook
 ---
 
 - [x] visit, sign in, sign up
+- [x] mail activation
 - [x] add to cart, buy directly
 - [x] empty the shopping cart, search order
 - [x] add,delete, update,search book
@@ -175,3 +176,12 @@ hints: I had fix this bug by using hibernate, so you can no longer enjoy it.
 
     ![WebMvcConfigurer](Share/annoying_bug/WebMvcConfigurer.png)
 
+* mail port
+
+  * 问题
+
+    开通qq邮箱smtp服务后，在本地没问题，放到阿里云上却怎么也发不了
+
+  * 原因
+
+    阿里云把25端口给禁了，要用ssl加密的465端口，增加ssl加密设置。
