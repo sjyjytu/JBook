@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "/JBook/static/js/runtime~main.2d8bf87d.js"
   },
   {
-    "revision": "9919449a65516c3cd872",
-    "url": "/JBook/static/js/main.9919449a.chunk.js"
+    "revision": "8c08bae3d3e98cdc8a9c",
+    "url": "/JBook/static/js/main.8c08bae3.chunk.js"
   },
   {
     "revision": "382dc929f9ae71dd1e9c",
     "url": "/JBook/static/js/2.382dc929.chunk.js"
   },
   {
-    "revision": "029e65d6d782eb8d45e3930214deda74",
+    "revision": "8ae2a77b8dc1cf9fe119cc11851f4983",
     "url": "/JBook/index.html"
   }
 ];
