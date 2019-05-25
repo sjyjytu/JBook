@@ -61,7 +61,10 @@ public class UserService {
         } else {
             try {
                 if (Utils.sendMail(email, code)) {
-                    User user = new User();
+                    User user = userRepository.findByUsernameIs(name);
+                    if (user == null) {
+                        user = new User();
+                    }
                     user.setEmail(email);
                     user.setUsername(name);
                     user.setPassword(password);
