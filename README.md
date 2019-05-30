@@ -84,6 +84,48 @@ hints: I had fix this bug by using hibernate, so you can no longer enjoy it.
 
 ---
 
+#### Being attacked and defend and revenge
+
+* Being attacked
+
+  The first day when I deploy my website, open source and without any security. It was attacked by tbc-- he changed all my books' pictures to TBC NB using postman, which made me annoyed but helpless.
+
+  ![attacked](./Share/attack/attacked.jpg)
+
+* Defend
+
+  Then I configure spring security and finally he doesn't have method any more.
+
+* Revenge
+
+  And today, he told me that he was going to deploy his website. So I am going to give him a gift~ As his register has no threshold(need neither email nor phone verification code) I decide to help him to register for 100,0000 users using script, to make his database happy.
+
+  The script written with python can be found [here](./Attack/attack.py)
+
+  And multiple threads seems more efficient than single thread, here are their performances
+
+  * single thread
+
+    ![single](./Share/attack/single.png)
+
+  * multiple threads
+
+    ![mul](Share/attack/mul.png)
+
+  * 8 threads
+
+    ![8_16](Share/attack/8_16.png)
+
+  * 16 threads
+
+    ![16_8](Share/attack/16_8.png)
+
+  * 32 threads
+
+    ![32_4](Share/attack/32_4.png)
+
+---
+
 ### Something fucking during development
 
 * Naming conflict
