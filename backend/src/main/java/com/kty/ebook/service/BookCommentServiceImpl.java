@@ -4,7 +4,6 @@ import com.kty.ebook.entity.BookComment;
 import com.kty.ebook.entity.Comment;
 import com.kty.ebook.repository.BookCommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
