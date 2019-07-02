@@ -45,7 +45,7 @@ class BookCard extends React.Component{
                     </Link>
                     <CardContent>
                         <Typography gutterBottom variant="h6" component="h4">
-                            {book.bookname}
+                            {book.bookname.length>5?book.bookname.substr(0,5)+"...":book.bookname}
                         </Typography>
                         <Typography component="p" className={classes.author}>
                             {book.author}
